@@ -17,8 +17,16 @@ export default function Layout() {
     },
   };
 
+  const openUserModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setVisibleUserModal(!visibleUserModal);
+  };
+
   return (
-    <div className="switchTheme w-screen h-screen fixed bg-lt-bg dark:bg-dk-bg ">
+    <div
+      className="switchTheme w-screen h-screen fixed bg-lt-bg dark:bg-dk-bg "
+      onClick={() => setVisibleUserModal(false)}
+    >
       <motion.div
         className="switchTheme w-full h-[74px] bg-lt-bg dark:bg-dk-bg dark:text-white flex justify-between pl-10 pr-5 border-main border-b-[2px]"
         variants={headerVar}
@@ -32,7 +40,7 @@ export default function Layout() {
           <LinkButton to={"/admin"} children={"Администрирование"} />
         </section>
 
-        <ProfileButton onClick={() => setVisibleUserModal(!visibleUserModal)} />
+        <ProfileButton onClick={openUserModal} />
       </motion.div>
       <div className="relative">
         <UserModal visible={visibleUserModal} />

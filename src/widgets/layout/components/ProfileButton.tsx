@@ -2,7 +2,7 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import cn from "classnames";
 
 interface ProfileButtonProps {
-  onClick: () => void;
+  onClick: (e: any) => void;
 }
 
 const ProfileButton = ({ onClick }: ProfileButtonProps) => {
