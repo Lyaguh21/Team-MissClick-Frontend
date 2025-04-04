@@ -4,9 +4,11 @@
 @theme {
   --font-roboto: "Roboto", sans-serif;
 
+  --color-dk-bg: #FF00AA;
+  --color-lt-bg: #C0BABA;
   --color-border-gray: #d4d6e0;
-  --color-main: #ff3b30;
-  --color-hover-main: #cf3932;
+  --color-main: #de3127;
+  --color-hover-main: #ff3b30;
   --color-text-gray: #5b5b5e;
 }
 

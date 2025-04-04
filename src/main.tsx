@@ -10,8 +10,8 @@ import Login from "./app/pages/Login.tsx";
 import Register from "./app/pages/Register.tsx";
 
 import Admin from "./app/pages/Admin.tsx";
-import Layout from "./widgets/layouts/Layout.tsx";
-import LayoutRegister from "./widgets/layouts/LayoutRegister.tsx";
+import Layout from "./widgets/layout/Layout.tsx";
+import LayoutRegister from "./widgets/layout/LayoutRegister.tsx";
 
 const router = createBrowserRouter([
   {
