@@ -20,7 +20,7 @@
 }
 
 @layer base {
-  .mainWindow,
+  .switchTheme,
   body {
     @apply transition-colors duration-[450ms];
   }

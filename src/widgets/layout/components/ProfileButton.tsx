@@ -1,7 +1,11 @@
 import { IoPersonCircleOutline } from "react-icons/io5";
 import cn from "classnames";
 
-const ProfileButton = ({ onClick }: { onClick: any }) => {
+interface ProfileButtonProps {
+  onClick: () => void;
+}
+
+const ProfileButton = ({ onClick }: ProfileButtonProps) => {
   return (
     <button
       className={cn("h-full aspect-square flex justify-center items-center")}
