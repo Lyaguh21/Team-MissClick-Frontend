@@ -1,23 +1,19 @@
-import { NavLink, Outlet } from "react-router";
+import { Outlet } from "react-router";
+import Logotype from "./components/Logotype";
+import LinkButton from "./components/LinkButton";
 
 export default function Layout() {
   return (
-    <div>
-      <div className="w-full h-[50px] bg-amber-300">
-        <div className="flex gap-5">
-          <NavLink to={"/"}>
-            <h2>Полезная информация</h2>
-          </NavLink>
-          <NavLink to={"/tasks"}>
-            <h2>Задачи</h2>
-          </NavLink>
-          <NavLink to={"/admin"}>
-            <h2>Администрирование</h2>
-          </NavLink>
-          <NavLink to={"/auth/login"}>
-            <h2>Регистрация</h2>
-          </NavLink>
-        </div>
+    <div className='w-screen h-screen fixed'>
+      <div className="w-full h-[74px] bg-gray-300 flex justify-between pl-10 pr-5">
+          <section className='flex h-full items-center'>
+          
+          <Logotype/>
+          <LinkButton to={'/'} text={'Полезная информация'}/>
+          <LinkButton to={'/tasks'} text={'Задачи'}/>
+          <LinkButton to={'/admin'} text={'Администрирование'}/>
+          </section>
+          <LinkButton to={'/auth/login'} text={'Авторизация'}/>
       </div>
       <div>
         <Outlet />
