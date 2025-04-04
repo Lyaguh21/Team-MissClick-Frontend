@@ -3,4 +3,8 @@
 
 @theme {
   --font-roboto: "Roboto", sans-serif;
+
+  --color-border-gray: #d4d6e0;
+  --color-main: #ff3b30;
+  --color-hover-main: #cf3932;
 }

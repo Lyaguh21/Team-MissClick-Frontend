@@ -1,15 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "../style/index.css";
+import "./app/style/index.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import Info from "../pages/Info.tsx";
-import Layout from "../layouts/Layout.tsx";
-import Tasks from "../pages/Tasks.tsx";
-import ErrorElement from "../pages/ErrorElement.tsx";
-import Login from "../pages/Login.tsx";
-import Register from "../pages/Register.tsx";
-import LayoutRegister from "../layouts/LayoutRegister.tsx";
-import Admin from "../pages/Admin.tsx";
+import Info from "./app/pages/Info.tsx";
+
+import Tasks from "./app/pages/Tasks.tsx";
+import ErrorElement from "./app/pages/ErrorElement.tsx";
+import Login from "./app/pages/Login.tsx";
+import Register from "./app/pages/Register.tsx";
+
+import Admin from "./app/pages/Admin.tsx";
+import Layout from "./widgets/layouts/Layout.tsx";
+import LayoutRegister from "./widgets/layouts/LayoutRegister.tsx";
 
 const router = createBrowserRouter([
   {
