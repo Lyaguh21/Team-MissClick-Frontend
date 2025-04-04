@@ -4,6 +4,15 @@ export default {
   theme: {
     // colors: {},
     // fontFamily: {},
+    screens: {
+      bigPhone: "425px",
+      tablet: "768px",
+      tabletPlus: "800px",
+      laptop: "1024px",
+      hd: "1280px",
+      bigLaptop: "1440px",
+      fullHd: "1920px",
+    },
   },
 
   plugins: [],
