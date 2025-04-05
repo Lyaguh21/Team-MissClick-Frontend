@@ -6,6 +6,7 @@ import Title from "../ui/global/Title";
 import Checkbox from "../ui/global/Checkbox";
 import { useForm } from "react-hook-form";
 import { usersSlice } from "../model/store";
+import axios from "axios";
 
 export interface IForm {
   login: string;
@@ -29,27 +30,22 @@ export default function Info() {
   } = useForm<IForm>();
 
   const onSubmit = (data: IForm) => {
-    if (data.pass !== data.passRep) {
-      setError("passRep", {
-        type: "custom",
-        message: "Пароли не соответствуют",
-      });
-    } else if (userSlice.users!.find((item) => item.login === data.login)) {
-      setError("login", { type: "custom", message: "Логин уже используется" });
-      clearErrors("passRep");
-    } else {
-      const id =
-        userSlice.users!.length > 0
-          ? Number(userSlice.users![userSlice.users!.length - 1].id + 1)
-          : 0;
-      userSlice.postUser({
-        id: String(id),
+    // if (data.pass !== data.passRep) {
+    //   setError("passRep", {
+    //     type: "custom",
+    //     message: "Пароли не соответствуют",
+    //   });
+    // } else if (userSlice.users!.find((item) => item.login === data.login)) {
+    //   setError("login", { type: "custom", message: "Логин уже используется" });
+    //   clearErrors("passRep");
+    // }
+      axios.post("http://localhost:3000/auth/register", {
         name: data.name,
         login: data.login,
         password: data.pass,
-      });
+      }).then((response) => {console.log(response)});
       navigate("/auth/login");
-    }
+    // }
   };
 
   return (
