@@ -64,7 +64,7 @@ const CreateModal: React.FC<IProps> = ({ setCreateModal }) => {
           <p>Введите название:</p>
 
           <input
-            className="outline-none bg-child-post dark:bg-[#2E2E2E] rounded-lg px-2 py-1 w-80  outline-none"
+            className=" bg-child-post dark:bg-[#2E2E2E] rounded-lg px-2 py-1 w-80  outline-none"
             type="text"
             placeholder="Название"
             {...register("title", {

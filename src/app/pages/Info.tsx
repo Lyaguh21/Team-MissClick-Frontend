@@ -8,9 +8,11 @@ import ModalWindow from "../ui/global/ModalWindow";
 import CreateModal from "../ui/Info/CreateModal";
 import classNames from "classnames";
 import { MdErrorOutline } from "react-icons/md";
+import ViewInfo from "../ui/Info/ViewInfo";
 
 export default function Info() {
   const [createModal, setCreateModal] = useState<boolean>(false);
+  const [viewInfo, setViewInfo] = useState<boolean>(false);
 
   const postSlice = postsSlice();
 
@@ -64,12 +66,17 @@ export default function Info() {
                 createdAt={post.createdAt}
                 image={post.image}
                 key={post.id}
+                onClick={() => setViewInfo(!viewInfo)}
               />
             ))}
         </div>
       </div>
       <ModalWindow isShow={createModal}>
         <CreateModal setCreateModal={setCreateModal} />
+      </ModalWindow>
+
+      <ModalWindow isShow={viewInfo}>
+        <ViewInfo setViewInfo={setViewInfo} />
       </ModalWindow>
     </>
   );

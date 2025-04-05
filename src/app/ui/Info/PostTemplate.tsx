@@ -10,6 +10,7 @@ interface PostTemplateProps {
   createdAt: string;
   author: string;
   image?: string;
+  onClick?: () => void;
 }
 
 export default function PostTemplate({
@@ -18,15 +19,14 @@ export default function PostTemplate({
   content,
   createdAt,
   author,
-  image = '',
+  image = "",
 }: PostTemplateProps) {
-
-  const postSlice = postsSlice()
+  const postSlice = postsSlice();
 
   const deleteHandle = () => {
-    postSlice.deletePost(id)
-    postSlice.fetchPosts()
-  }
+    postSlice.deletePost(id);
+    postSlice.fetchPosts();
+  };
 
   const [visibleContext, setVisibleContext] = useState(false);
   return (
@@ -40,7 +40,9 @@ export default function PostTemplate({
     >
       <ContextWindow visible={visibleContext}>
         <h2>Редактировать</h2>
-        <h2 onClick={deleteHandle} className="text-main">Удалить</h2>
+        <h2 onClick={deleteHandle} className="text-main">
+          Удалить
+        </h2>
       </ContextWindow>
       <div className="flex justify-between mb-[10px]">
         <h2 className="text-[24px]">{title}</h2>
@@ -53,15 +55,20 @@ export default function PostTemplate({
         />
       </div>
       <div className="flex justify-between gap-[10px]">
-        <div className='flex flex-col justify-between h-50'>
-        <p className='mb-4'>{content}</p>
-        <div className="basis-1/2 flex flex-col justify-end">
-          <h2 className="switchTheme w-full bg-child-post dark:bg-dk-bg p-[8px] rounded-br-[10px]">
-            Создано: {createdAt}
-          </h2>
+        <div className="flex flex-col justify-between h-50">
+          <p className="mb-4">{content}</p>
+          <div className="basis-1/2 flex flex-col justify-end">
+            <h2 className="switchTheme w-full bg-child-post dark:bg-dk-bg p-[8px] rounded-br-[10px]">
+              Создано: {createdAt}
+            </h2>
+          </div>
         </div>
-        </div>
-        {image && <img src={image} className="switchTheme  object-cover bg-child-post dark:bg-dk-bg aspect-square rounded-[10px] w-50 border-[1px] border-main" />}
+        {image && (
+          <img
+            src={image}
+            className="switchTheme  object-cover bg-child-post dark:bg-dk-bg aspect-square rounded-[10px] w-50 border-[1px] border-main"
+          />
+        )}
       </div>
       <h2 className="switchTheme w-full mt-[10px] bg-child-post dark:bg-dk-bg p-[8px] rounded-tr-[10px]">
         Редактор: {author}
