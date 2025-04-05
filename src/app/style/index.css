@@ -18,6 +18,8 @@
   --color-main: #de3127;
   --color-hover-main: #ff3b30;
   --color-text-gray: #5b5b5e;
+
+  --breakpoint-lg: 1900px;
 }
 
 @layer base {
