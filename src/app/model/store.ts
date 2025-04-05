@@ -87,8 +87,9 @@ export const usersSlice = create<IUsers>((set) => ({
 export const postsSlice = create<IPostsSlice>((set) => ({
   posts: [],
   fetchPosts: async () => {
-    const res = await fetch("http://localhost:3000/viewAll");
-    set({ posts: await res.json() });
+    const res = api.get("http://localhost:3000/viewAll");
+    console.log((await res).data)
+    set({ posts: (await res).data });
   },
   postPost: async (post) => {
     await fetch(url + `posts`, {
