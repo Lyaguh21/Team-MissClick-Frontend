@@ -14,6 +14,7 @@ interface IForm {
   title: string;
   content: string;
   img: string | null;
+  date: string;
 }
 
 const CreateTask: React.FC<IProps> = ({ setCreateModal }) => {
@@ -81,7 +82,17 @@ const CreateTask: React.FC<IProps> = ({ setCreateModal }) => {
                 placeholder="Дедлайн"
                 type="text"
                 className="w-[90px] outline-none"
+                {...register("date", {
+                  required: "это обязательное поле",
+                  pattern: {
+                    value: /[0-9]{2}\.[0-9]{2}\.[0-9]{4}/g,
+                    message: "Неверный формат даты",
+                  },
+                })}
               />
+              {errors.date && (
+                <p className="text-red-500">{errors.date.message}</p>
+              )}
             </div>
 
             <div className="bg-child-post rounded-[10px] p-[14px] ">
