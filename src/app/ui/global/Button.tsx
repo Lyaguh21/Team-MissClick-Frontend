@@ -15,12 +15,12 @@ export default function Button({
   return (
     <button
       className={cn(
-        "bg-main hover:bg-hover-main active:bg-main text-white text-base font-normal rounded-full",
+        "",
         {
-          ["w-[143px] h-[43px]  "]: appearance == "base",
-          ["w-[248px] h-[60px] uppercase font-semibold "]: appearance == "big",
-          ["w-[34px] h-[34px] flex justify-center items-center rounded-full"]:
-            appearance == "nav",
+          ["w-[143px] h-[43px] bg-main hover:bg-hover-main active:bg-main text-white text-base font-normal rounded-full "]:
+            appearance == "base",
+          ["h-[60px] px-[30px]  bg-[#EAEAEA] text-[24px] hover:bg-[#bcbcbc] active:bg-[#EAEAEA] duration-300"]:
+            appearance == "grayButton",
         },
         className
       )}
