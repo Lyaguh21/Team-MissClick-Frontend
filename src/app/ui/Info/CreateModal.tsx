@@ -53,25 +53,26 @@ const CreateModal: React.FC<IProps> = ({ setCreateModal }) => {
     >
       <div className="flex justify-between w-full h-50">
         <div className="flex flex-col justify-between h-[100%] ">
-          <p>Введите название:</p>
+          <div className="flex flex-col">
+            <p>Введите название:</p>
 
-          <input
-            className=" bg-child-post dark:bg-[#2E2E2E] rounded-lg px-2 py-1 w-80  outline-none"
-            type="text"
-            placeholder="Название"
-            {...register("title", {
-              minLength: {
-                value: 6,
-                message: "Название не может быть короче 6 символов",
-              },
-              required: "поле название не может быть пустым",
-            })}
-          />
+            <input
+              className=" bg-child-post dark:bg-[#2E2E2E] rounded-lg px-2 py-1 w-80  outline-none"
+              type="text"
+              placeholder="Название"
+              {...register("title", {
+                minLength: {
+                  value: 6,
+                  message: "Название не может быть короче 6 символов",
+                },
+                required: "поле название не может быть пустым",
+              })}
+            />
 
-          {errors.title && (
-            <p className="text-red-500">{errors.title.message}</p>
-          )}
-
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
+          </div>
           <p>Введите описание:</p>
         </div>
 

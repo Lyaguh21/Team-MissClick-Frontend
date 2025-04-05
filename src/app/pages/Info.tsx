@@ -105,7 +105,7 @@ export default function Info() {
       </ModalWindow>
 
       <ModalWindow isShow={viewInfo}>
-        <ViewInfo setViewInfo={setViewInfo} /> //Модалка информации о статье
+        <ViewInfo setViewInfo={setViewInfo} />
       </ModalWindow>
     </>
   );

@@ -6,6 +6,7 @@ import Title from "../ui/global/Title";
 import { useForm } from "react-hook-form";
 
 import axios from "axios";
+import { usersSlice } from "../model/store";
 
 interface IForm {
   login: string;
@@ -14,29 +15,31 @@ interface IForm {
 
 export default function Login() {
   const navigate = useNavigate();
+  const userSlice = usersSlice();
 
   const {
     register,
     handleSubmit,
-    setError,
-    clearErrors,
     formState: { errors },
   } = useForm<IForm>();
 
   const onSubmit = async (data: { login: string; pass: string }) => {
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', {
+      const response = await axios.post("http://localhost:3000/auth/login", {
         login: data.login,
         password: data.pass,
       });
 
       const token = response.data.access_token;
-      localStorage.setItem('token', token);
-
-      navigate('/');
+      localStorage.setItem("token", token);
+      userSlice.setCurrentUser({
+        name: response.data.name,
+        login: response.data.login,
+      });
+      navigate("/");
     } catch (error: any) {
-      console.error('Ошибка входа:', error);
-      alert('Неверный логин или пароль');
+      console.error("Ошибка входа:", error);
+      alert("Неверный логин или пароль");
     }
   };
 
