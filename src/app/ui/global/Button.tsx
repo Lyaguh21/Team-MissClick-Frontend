@@ -21,6 +21,8 @@ export default function Button({
             appearance == "base",
           ["h-[60px] px-[30px]  bg-[#EAEAEA] dark:bg-[#2E2E2E] dark:text-white text-[24px] dark:hover:text-black hover:bg-[#bcbcbc] active:bg-[#EAEAEA] duration-300"]:
             appearance == "grayButton",
+          ["w-[248px] h-[60px] uppercase bg-main hover:bg-hover-main active:bg-main text-white font-semibold rounded-full"]:
+            appearance == "big",
         },
         className
       )}

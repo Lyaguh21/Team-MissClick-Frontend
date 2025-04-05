@@ -4,7 +4,7 @@ import Input from "../ui/global/Input";
 import Label from "../ui/global/Label";
 import Title from "../ui/global/Title";
 import Checkbox from "../ui/global/Checkbox";
-import {useForm} from 'react-hook-form'
+import { useForm } from "react-hook-form";
 import { usersSlice } from "../model/store";
 
 export interface IForm {
@@ -16,47 +16,87 @@ export interface IForm {
 }
 
 export default function Info() {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const userSlice = usersSlice();
 
-  const userSlice = usersSlice()
-
-  const {register, clearErrors, handleSubmit, setError, formState: {errors}} = useForm<IForm>()
+  const {
+    register,
+    clearErrors,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<IForm>();
 
   const onSubmit = (data: IForm) => {
-    if(data.pass !== data.passRep){
-      setError('passRep', {type: 'custom', message: 'Пароли не соответствуют'})
-    } else if(userSlice.users!.find((item) => item.login === data.login)) {
-      setError('login', {type: 'custom', message: 'Логин уже используется'})
-      clearErrors('passRep')
+    if (data.pass !== data.passRep) {
+      setError("passRep", {
+        type: "custom",
+        message: "Пароли не соответствуют",
+      });
+    } else if (userSlice.users!.find((item) => item.login === data.login)) {
+      setError("login", { type: "custom", message: "Логин уже используется" });
+      clearErrors("passRep");
     } else {
-      const id = userSlice.users!.length > 0 ? Number(userSlice.users![userSlice.users!.length - 1].id + 1) : 0
-      userSlice.postUser({id: String(id), name: data.name, login: data.login, password: data.pass})
-      navigate('/auth/login')
+      const id =
+        userSlice.users!.length > 0
+          ? Number(userSlice.users![userSlice.users!.length - 1].id + 1)
+          : 0;
+      userSlice.postUser({
+        id: String(id),
+        name: data.name,
+        login: data.login,
+        password: data.pass,
+      });
+      navigate("/auth/login");
     }
-  }
+  };
 
   return (
-    <section className="px-[150px] pt-[70px]">
+    <section className="px-[150px] pt-[55px]">
       <Title className="mb-[30px]">Регистрация</Title>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[17px]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-[17px]"
+      >
         <div>
           <Label htmlFor="name">Ваш логин</Label>
           <Input
             placeholder="Логин"
             type="text"
             className="mt-1"
-            {...register('login', {minLength: {value: 4, message: 'Логин должен быть не меньше 4 символов'}, required: 'Поле логин не может быть пустым', pattern: {value: /^[a-zA-Z]+$/g, message: 'Логин может содержать только символы английского алфавита'}})}
+            {...register("login", {
+              minLength: {
+                value: 4,
+                message: "Логин должен быть не меньше 4 символов",
+              },
+              required: "Поле логин не может быть пустым",
+              pattern: {
+                value: /^[a-zA-Z]+$/g,
+                message:
+                  "Логин может содержать только символы английского алфавита",
+              },
+            })}
           />
-          {errors.login && <p className='text-red-500'>{errors.login.message}</p>}
+          {errors.login && (
+            <p className="text-red-500">{errors.login.message}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="name">Ваш ФИО</Label>
-          <Input placeholder="ФИО" type="text" className="mt-1" 
-            {...register('name', {pattern: {value: /^[а-яА-Я]+$/g, message: 'ФИО может содержать только символы русского алфавита'}})} 
+          <Input
+            placeholder="ФИО"
+            type="text"
+            className="mt-1"
+            {...register("name", {
+              pattern: {
+                value: /^[а-яА-Я]+$/g,
+                message: "ФИО может содержать только символы русского алфавита",
+              },
+            })}
           />
-          {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         </div>
 
         <div>
@@ -66,9 +106,20 @@ export default function Info() {
             id="password"
             type="password"
             className="mt-1"
-            {...register('pass', {required: 'Поле пароль не может быть пустым', minLength: {value: 8, message: 'Пароль должен содержать не меньше 8 символов'}, pattern: {value: /^[a-zA-Z0-9,.?!_-]+$/g, message: 'Пароль может содержать только сиволы латиницы и спецсимволы(,.?!_-)'}})}
+            {...register("pass", {
+              required: "Поле пароль не может быть пустым",
+              minLength: {
+                value: 8,
+                message: "Пароль должен содержать не меньше 8 символов",
+              },
+              pattern: {
+                value: /^[a-zA-Z0-9,.?!_-]+$/g,
+                message:
+                  "Пароль может содержать только сиволы латиницы и спецсимволы(,.?!_-)",
+              },
+            })}
           />
-          {errors.pass && <p className='text-red-500'>{errors.pass.message}</p>}
+          {errors.pass && <p className="text-red-500">{errors.pass.message}</p>}
         </div>
 
         <div>
@@ -78,17 +129,25 @@ export default function Info() {
             id="password"
             type="password"
             className="mt-1"
-            {...register('passRep', {required: 'Повторите пароль'})}
+            {...register("passRep", { required: "Повторите пароль" })}
           />
         </div>
 
         <div className="flex flex-col mt-[20px] items-center gap-[24px]">
-          <Button appearance="big" type='submit'>Зарегистрироваться</Button>
+          <Button appearance="big" type="submit">
+            Зарегистрироваться
+          </Button>
           <div className="flex gap-[13px]">
-            <Checkbox error={errors.check ? true : false} register={register} registerOps={{required: true}} />
+            <Checkbox
+              error={errors.check ? true : false}
+              register={register}
+              registerOps={{ required: true }}
+            />
             <label
               htmlFor="accept"
-              className={`${errors.check ? 'text-red-500' : 'text-text-gray'} h-[18px] leading-[18px] mt-[3px]`}
+              className={`${
+                errors.check ? "text-red-500" : "text-text-gray"
+              } h-[18px] leading-[18px] mt-[3px]`}
             >
               Согласие на обработку персональных данных
             </label>
