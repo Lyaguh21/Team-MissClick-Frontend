@@ -11,7 +11,7 @@ export default function Info() {
 
   return (
     <div className="flex h-screen">
-      <div className="basis-1/2 h-full flex justify-center items-center border-r-[1px] border-border-gray">
+      <div className="basis-1/2 h-full flex justify-center items-center border-r-[1px] dark:bg-dk-bg border-border-gray dark:border-white">
         <img src="\img\MainLogo.png" className="w-[434px] h-[290px]" />
       </div>
       <div className="basis-1/2 h-full">

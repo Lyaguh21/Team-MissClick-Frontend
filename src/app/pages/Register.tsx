@@ -53,7 +53,7 @@ export default function Info() {
   };
 
   return (
-    <section className="px-[150px] pt-[55px]">
+    <section className="px-[150px] pt-[55px]  dark:bg-dk-bg h-full dark:text-white">
       <Title className="mb-[30px]">Регистрация</Title>
 
       <form
@@ -91,7 +91,7 @@ export default function Info() {
             className="mt-1"
             {...register("name", {
               pattern: {
-                value: /^[а-яА-Я]+$/g,
+                value: /^[а-я А-Я]+$/g,
                 message: "ФИО может содержать только символы русского алфавита",
               },
             })}
@@ -126,7 +126,7 @@ export default function Info() {
           <Label htmlFor="name">Повторите пароль</Label>
           <Input
             placeholder="Пароль"
-            id="password"
+            id="passwordRep"
             type="password"
             className="mt-1"
             {...register("passRep", { required: "Повторите пароль" })}
@@ -147,7 +147,7 @@ export default function Info() {
               htmlFor="accept"
               className={`${
                 errors.check ? "text-red-500" : "text-text-gray"
-              } h-[18px] leading-[18px] mt-[3px]`}
+              } h-[18px] leading-[18px] mt-[4px]`}
             >
               Согласие на обработку персональных данных
             </label>
