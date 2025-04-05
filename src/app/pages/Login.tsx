@@ -4,7 +4,7 @@ import Input from "../ui/global/Input";
 import Label from "../ui/global/Label";
 import Title from "../ui/global/Title";
 import { useForm } from "react-hook-form";
-import { usersSlice } from "../model/store";
+
 import axios from "axios";
 
 interface IForm {

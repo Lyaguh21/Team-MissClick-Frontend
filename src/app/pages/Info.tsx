@@ -6,30 +6,22 @@ import { postsSlice } from "../model/store";
 import { useEffect, useState } from "react";
 import ModalWindow from "../ui/global/ModalWindow";
 import CreateModal from "../ui/Info/CreateModal";
-<<<<<<< HEAD
 import UpdateModal from "../ui/Info/UpdateModal";
+import classNames from "classnames";
+import { MdErrorOutline } from "react-icons/md";
 
 interface IPostLess {
   id: string;
   title: string;
   content: string;
   image: string;
+
 }
-=======
-import classNames from "classnames";
-import { MdErrorOutline } from "react-icons/md";
->>>>>>> c6174a7709ea4c064ae0c3942fd0e41e3d9a7a83
-
 export default function Info() {
-  const [createModal, setCreateModal] = useState<boolean>(false);
-
-<<<<<<< HEAD
   const [createModal, setCreateModal] = useState<boolean>(false)
   const [updateModal, setUpdateModal] = useState<boolean>(false)
   const [currentPost, setCurrentPost] = useState<IPostLess | null>(null)
-=======
   const postSlice = postsSlice();
->>>>>>> c6174a7709ea4c064ae0c3942fd0e41e3d9a7a83
 
   useEffect(() => {
     postSlice.fetchPosts();
@@ -81,26 +73,18 @@ export default function Info() {
                 createdAt={post.createdAt}
                 image={post.image}
                 key={post.id}
+                setCurrentPost={setCurrentPost}
+                setUpdateModal={setUpdateModal}
               />
             ))}
         </div>
       </div>
-<<<<<<< HEAD
-      <div className="h-[700px] lg:h-[855px] scroll gap-[6px] overflow-y-scroll inline-flex flex-wrap ">
-        {postSlice.posts.map((post) => <PostTemplate setCurrentPost={setCurrentPost} setUpdateModal={setUpdateModal} id={Number(post.id)} title={post.title} content={post.content} author={post.lastEditor} createdAt={post.createdAt} image={post.image} key={post.id}/>)}
-      </div>
-    </div>
     <ModalWindow isShow={createModal}>
       <CreateModal setCreateModal={setCreateModal}/>
     </ModalWindow>
     <ModalWindow isShow={updateModal}>
       {currentPost && <UpdateModal setUpdateModal={setUpdateModal} form={{title: currentPost!.title, content: currentPost!.content, img: currentPost!.image}} postid={currentPost!.id}/>}
     </ModalWindow>
-=======
-      <ModalWindow isShow={createModal}>
-        <CreateModal setCreateModal={setCreateModal} />
-      </ModalWindow>
->>>>>>> c6174a7709ea4c064ae0c3942fd0e41e3d9a7a83
     </>
   );
 }
