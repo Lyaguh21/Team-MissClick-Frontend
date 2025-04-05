@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { postsSlice, usersSlice } from "../../model/store";
+import { postsSlice } from "../../model/store";
 
 interface IProps {
   setUpdateModal: (arg: boolean) => void;
@@ -16,7 +16,6 @@ interface IForm {
 
 const UpdateModal: React.FC<IProps> = ({ setUpdateModal, form, postid }) => {
   const postSlice = postsSlice();
-  const userSlice = usersSlice();
 
   const {
     register,
@@ -34,17 +33,13 @@ const UpdateModal: React.FC<IProps> = ({ setUpdateModal, form, postid }) => {
   };
 
   const onSubmit = (data: IForm) => {
-    const date = new Date();
     postSlice.updatePost({
-      id: String(postid),
+      id: postid,
       title: data.title,
-      content: data.content,
+      content: data.content,  
       image: img ? img : "",
-      createdAt: postSlice.posts.find((post) => post.id === postid)!.createdAt,
-      updatedAt: date.toLocaleDateString(),
-      lastEditor: userSlice.currentUser!.login,
     });
-    postSlice.fetchPosts();
+    setTimeout(() => postSlice.fetchPosts(), 500);
     setUpdateModal(false);
   };
 
