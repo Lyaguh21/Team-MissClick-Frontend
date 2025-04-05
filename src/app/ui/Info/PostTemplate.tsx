@@ -10,6 +10,8 @@ interface PostTemplateProps {
   createdAt: string;
   author: string;
   image?: string;
+  setCurrentPost: (post: {id: string, title: string, content: string, image: string}) => void;
+  setUpdateModal: (arg:boolean) => void
 }
 
 export default function PostTemplate({
@@ -19,6 +21,8 @@ export default function PostTemplate({
   createdAt,
   author,
   image = '',
+  setCurrentPost,
+  setUpdateModal,
 }: PostTemplateProps) {
 
   const postSlice = postsSlice()
@@ -39,7 +43,7 @@ export default function PostTemplate({
       key={id}
     >
       <ContextWindow visible={visibleContext}>
-        <h2>Редактировать</h2>
+        <h2 onClick={() => {setCurrentPost({title: title, content: content, id: String(id), image: image}); setUpdateModal(true)}}>Редактировать</h2>
         <h2 onClick={deleteHandle} className="text-main">Удалить</h2>
       </ContextWindow>
       <div className="flex justify-between mb-[10px]">

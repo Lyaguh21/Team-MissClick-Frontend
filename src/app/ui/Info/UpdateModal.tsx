@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form'
 import { postsSlice, usersSlice } from '../../model/store';
 
 interface IProps {
-    setCreateModal: (arg: boolean) => void
+    setUpdateModal: (arg: boolean) => void
+    form: IForm;
+    postid: string;
 }
 
 interface IForm {
@@ -12,14 +14,14 @@ interface IForm {
     img: string | null
 }
 
-const CreateModal: React.FC<IProps> = ({setCreateModal}) => {
+const UpdateModal: React.FC<IProps> = ({setUpdateModal, form, postid}) => {
 
   const postSlice = postsSlice()
   const userSlice = usersSlice()
 
-  const {register, handleSubmit, formState: {errors}} = useForm<IForm>()
+  const {register, handleSubmit, formState: {errors}} = useForm<IForm>({defaultValues: form})
 
-  const [img, setImg] = useState<string | null>(null)    
+  const [img, setImg] = useState<string | null>(form.img)    
 
   const imageChangeHandle = (e: any) => {
     const image = e.target.files[0]
@@ -29,16 +31,10 @@ const CreateModal: React.FC<IProps> = ({setCreateModal}) => {
   }
 
   const onSubmit = (data: IForm) => {
-    let id
     const date = new Date()
-    if(postSlice.posts.length < 1){
-        id=1
-    } else {
-        id = Number(postSlice.posts[postSlice.posts.length - 1].id) + 1
-    }
-    postSlice.postPost({id: String(id), title: data.title, content: data.content, image: img ? img : '', createdAt: date.toLocaleDateString(), updatedAt: date.toLocaleDateString(), lastEditor: userSlice.currentUser!.login })
+    postSlice.updatePost({id: String(postid), title: data.title, content: data.content, image: img ? img : '', createdAt: postSlice.posts.find((post) => post.id === postid)!.createdAt,  updatedAt: date.toLocaleDateString(), lastEditor: userSlice.currentUser!.login })
     postSlice.fetchPosts()
-    setCreateModal(false)
+    setUpdateModal(false)
   }
 
   return (
@@ -76,7 +72,7 @@ const CreateModal: React.FC<IProps> = ({setCreateModal}) => {
 
     <button className='w-full px-2 py-1 border-[2px] border-main text-white bg-main rounded-full' type='submit'>Сохранить статью</button>
 
-    <button onClick={() => setCreateModal(false)} className='w-full px-2 py-1 border-[2px] border-main text-main rounded-full' type='button'>Отмена</button>
+    <button onClick={() => setUpdateModal(false)} className='w-full px-2 py-1 border-[2px] border-main text-main rounded-full' type='button'>Отмена</button>
 
     </form>
 
@@ -85,4 +81,4 @@ const CreateModal: React.FC<IProps> = ({setCreateModal}) => {
 
 }
 
-export default CreateModal
+export default UpdateModal

@@ -6,10 +6,20 @@ import { postsSlice } from "../model/store";
 import { useEffect, useState } from "react";
 import ModalWindow from "../ui/global/ModalWindow";
 import CreateModal from "../ui/Info/CreateModal";
+import UpdateModal from "../ui/Info/UpdateModal";
+
+interface IPostLess {
+  id: string;
+  title: string;
+  content: string;
+  image: string;
+}
 
 export default function Info() {
 
   const [createModal, setCreateModal] = useState<boolean>(false)
+  const [updateModal, setUpdateModal] = useState<boolean>(false)
+  const [currentPost, setCurrentPost] = useState<IPostLess | null>(null)
 
   const postSlice = postsSlice()
 
@@ -36,11 +46,14 @@ export default function Info() {
         </Button>
       </div>
       <div className="h-[700px] lg:h-[855px] scroll gap-[6px] overflow-y-scroll inline-flex flex-wrap ">
-        {postSlice.posts.map((post) => <PostTemplate id={Number(post.id)} title={post.title} content={post.content} author={post.lastEditor} createdAt={post.createdAt} image={post.image} key={post.id}/>)}
+        {postSlice.posts.map((post) => <PostTemplate setCurrentPost={setCurrentPost} setUpdateModal={setUpdateModal} id={Number(post.id)} title={post.title} content={post.content} author={post.lastEditor} createdAt={post.createdAt} image={post.image} key={post.id}/>)}
       </div>
     </div>
     <ModalWindow isShow={createModal}>
       <CreateModal setCreateModal={setCreateModal}/>
+    </ModalWindow>
+    <ModalWindow isShow={updateModal}>
+      {currentPost && <UpdateModal setUpdateModal={setUpdateModal} form={{title: currentPost!.title, content: currentPost!.content, img: currentPost!.image}} postid={currentPost!.id}/>}
     </ModalWindow>
     </>
   );
