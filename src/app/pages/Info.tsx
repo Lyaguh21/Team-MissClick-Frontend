@@ -77,7 +77,7 @@ export default function Info() {
                 key={post.id}
                 setCurrentPost={setCurrentPost}
                 setUpdateModal={setUpdateModal}
-                onClick={() => setViewInfo(!viewInfo)}
+                viewContext={() => setViewInfo(!viewInfo)}
               />
             ))}
         </div>

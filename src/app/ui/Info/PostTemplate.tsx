@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TbDots } from "react-icons/tb";
 import ContextWindow from "../global/ContextWindow";
 import { postsSlice } from "../../model/store";
+import { MdOutlineHideImage } from "react-icons/md";
 
 interface PostTemplateProps {
   id: number;
@@ -10,6 +11,7 @@ interface PostTemplateProps {
   createdAt: string;
   author: string;
   image?: string;
+  viewContext: () => void;
   onClick?: () => void;
   setCurrentPost: (post: {
     id: string;
@@ -27,6 +29,7 @@ export default function PostTemplate({
   createdAt,
   author,
   image = " ",
+  viewContext,
   setCurrentPost,
   setUpdateModal,
 }: PostTemplateProps) {
@@ -50,6 +53,15 @@ export default function PostTemplate({
       <ContextWindow visible={visibleContext}>
         <h2
           onClick={() => {
+            viewContext();
+            setVisibleContext(false);
+          }}
+          className=" cursor-pointer"
+        >
+          Просмотреть
+        </h2>
+        <h2
+          onClick={() => {
             setCurrentPost({
               title: title,
               content: content,
@@ -57,12 +69,14 @@ export default function PostTemplate({
               image: image,
             });
             setUpdateModal(true);
+            setVisibleContext(false);
           }}
-          className="cursor-pointer z-10"
+          className="cursor-pointer"
         >
           Редактировать
         </h2>
-        <h2 onClick={deleteHandle} className="text-main">
+
+        <h2 onClick={deleteHandle} className="text-main cursor-pointer">
           Удалить
         </h2>
       </ContextWindow>

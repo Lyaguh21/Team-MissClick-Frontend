@@ -33,7 +33,7 @@ const ModalWindow: React.FC<IProps> = ({ children, isShow }) => {
     <AnimatePresence>
       {isShow && (
         <motion.div
-          className="fixed h-screen w-screen bg-black/20 top-0 left-0 flex justify-center items-center"
+          className="fixed h-screen w-screen bg-black/20 top-0 left-0 absolute z-30 flex justify-center items-center"
           variants={modalVar}
           initial="hide"
           animate={isShow ? "show" : "hide"}
