@@ -9,6 +9,7 @@ import CreateModal from "../ui/Info/CreateModal";
 import UpdateModal from "../ui/Info/UpdateModal";
 import classNames from "classnames";
 import { MdErrorOutline } from "react-icons/md";
+import ViewInfo from "../ui/Info/ViewInfo";
 
 interface IPostLess {
   id: string;
@@ -16,18 +17,12 @@ interface IPostLess {
   content: string;
   image: string;
 }
-=======
-import classNames from "classnames";
-import { MdErrorOutline } from "react-icons/md";
->>>>>>> c6174a7709ea4c064ae0c3942fd0e41e3d9a7a83
 
 export default function Info() {
+  const [viewInfo, setViewInfo] = useState<boolean>(false);
   const [createModal, setCreateModal] = useState<boolean>(false);
-
-<<<<<<< HEAD
-  const [createModal, setCreateModal] = useState<boolean>(false)
-  const [updateModal, setUpdateModal] = useState<boolean>(false)
-  const [currentPost, setCurrentPost] = useState<IPostLess | null>(null)
+  const [updateModal, setUpdateModal] = useState<boolean>(false);
+  const [currentPost, setCurrentPost] = useState<IPostLess | null>(null);
   const postSlice = postsSlice();
 
   useEffect(() => {
@@ -87,17 +82,31 @@ export default function Info() {
             ))}
         </div>
       </div>
-    <ModalWindow isShow={createModal}>
-      <CreateModal setCreateModal={setCreateModal}/>
-    </ModalWindow>
-    <ModalWindow isShow={updateModal}>
-      {currentPost && <UpdateModal setUpdateModal={setUpdateModal} form={{title: currentPost!.title, content: currentPost!.content, img: currentPost!.image}} postid={currentPost!.id}/>}
-    </ModalWindow>
-=======
       <ModalWindow isShow={createModal}>
         <CreateModal setCreateModal={setCreateModal} />
       </ModalWindow>
->>>>>>> c6174a7709ea4c064ae0c3942fd0e41e3d9a7a83
+
+      <ModalWindow isShow={updateModal}>
+        {currentPost && (
+          <UpdateModal
+            setUpdateModal={setUpdateModal}
+            form={{
+              title: currentPost!.title,
+              content: currentPost!.content,
+              img: currentPost!.image,
+            }}
+            postid={currentPost!.id}
+          />
+        )}
+      </ModalWindow>
+
+      <ModalWindow isShow={createModal}>
+        <CreateModal setCreateModal={setCreateModal} />
+      </ModalWindow>
+
+      <ModalWindow isShow={viewInfo}>
+        <ViewInfo setViewInfo={setViewInfo} /> //Модалка информации о статье
+      </ModalWindow>
     </>
   );
 }

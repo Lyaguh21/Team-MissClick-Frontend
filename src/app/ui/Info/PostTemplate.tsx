@@ -10,12 +10,14 @@ interface PostTemplateProps {
   createdAt: string;
   author: string;
   image?: string;
-<<<<<<< HEAD
   onClick?: () => void;
-=======
-  setCurrentPost: (post: {id: string, title: string, content: string, image: string}) => void;
-  setUpdateModal: (arg:boolean) => void
->>>>>>> 613330acc137805f609d3677024934a88c6796d9
+  setCurrentPost: (post: {
+    id: string;
+    title: string;
+    content: string;
+    image: string;
+  }) => void;
+  setUpdateModal: (arg: boolean) => void;
 }
 
 export default function PostTemplate({
@@ -24,13 +26,9 @@ export default function PostTemplate({
   content,
   createdAt,
   author,
-<<<<<<< HEAD
   image = "",
-=======
-  image = '',
   setCurrentPost,
   setUpdateModal,
->>>>>>> 613330acc137805f609d3677024934a88c6796d9
 }: PostTemplateProps) {
   const postSlice = postsSlice();
 
@@ -50,15 +48,22 @@ export default function PostTemplate({
       key={id}
     >
       <ContextWindow visible={visibleContext}>
-<<<<<<< HEAD
-        <h2>Редактировать</h2>
+        <h2
+          onClick={() => {
+            setCurrentPost({
+              title: title,
+              content: content,
+              id: String(id),
+              image: image,
+            });
+            setUpdateModal(true);
+          }}
+        >
+          Редактировать
+        </h2>
         <h2 onClick={deleteHandle} className="text-main">
           Удалить
         </h2>
-=======
-        <h2 onClick={() => {setCurrentPost({title: title, content: content, id: String(id), image: image}); setUpdateModal(true)}}>Редактировать</h2>
-        <h2 onClick={deleteHandle} className="text-main">Удалить</h2>
->>>>>>> 613330acc137805f609d3677024934a88c6796d9
       </ContextWindow>
       <div className="flex justify-between mb-[10px]">
         <h2 className="text-[24px]">{title}</h2>
