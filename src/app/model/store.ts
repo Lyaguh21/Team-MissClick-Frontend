@@ -1,4 +1,6 @@
+import axios from "axios";
 import { create } from "zustand";
+import api from "../../axiosInstance";
 
 const url = "http://localhost:3000/";
 
@@ -11,12 +13,12 @@ interface IUser {
 
 export interface IPost {
   id: string;
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
   image: string;
-  createdAt: string;
-  updatedAt: string;
-  lastEditor: string;
+  createdAt?: string;
+  updatedAt?: string;
+  lastEditor?: string;
 }
 
 interface IPostsSlice {
@@ -97,28 +99,16 @@ export const postsSlice = create<IPostsSlice>((set) => ({
     set((state) => ({ posts: [...state.posts, post] }));
   },
   updatePost: async (newPost) => {
-    await fetch(url + `posts/${newPost.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newPost),
+    api.patch("http://localhost:3000/update", {
+      id: newPost.id,
+      title: newPost.title,
+      content: newPost.content,
+      images: [newPost.image],
     });
-    set((state) => ({
-      posts: state.posts.map((post: IPost) => {
-        if (post.id === newPost.id) {
-          return newPost;
-        } else {
-          return post;
-        }
-      }),
-    }));
   },
   deletePost: async (id) => {
-    await fetch(url + `posts/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+    await axios.patch("http://localhost:3000/delete", {
+      id: id,
     });
-    set((state) => ({
-      posts: state.posts.filter((post) => post.id !== String(id)),
-    }));
   },
 }));

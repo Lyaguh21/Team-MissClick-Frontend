@@ -69,10 +69,10 @@ export default function Info() {
             postSlice.posts.map((post) => (
               <PostTemplate
                 id={Number(post.id)}
-                title={post.title}
-                content={post.content}
-                author={post.lastEditor}
-                createdAt={post.createdAt.slice(0, 10)}
+                title={post.title!}
+                content={post.content!}
+                author={post.lastEditor!}
+                createdAt={post.createdAt!.slice(0, 10)}
                 image={post.image}
                 key={post.id}
                 setCurrentPost={setCurrentPost}
@@ -105,7 +105,7 @@ export default function Info() {
       </ModalWindow>
 
       <ModalWindow isShow={viewInfo}>
-        <ViewInfo setViewInfo={setViewInfo} />
+        <ViewInfo setViewInfo={setViewInfo} title={""} content={""} image={""} updatedAt={""} lastEditor={""} />
       </ModalWindow>
     </>
   );
