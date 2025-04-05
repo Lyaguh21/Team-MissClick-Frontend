@@ -1,6 +1,6 @@
 import {create} from 'zustand'
 
-const url = 'http://localhost:3100/'
+const url = 'http://localhost:3000/'
 
 interface IUser {
     id: string;
@@ -62,7 +62,7 @@ export const usersSlice = create<IUsers>((set) => ({
         set((state) => ({users: state.users?.filter((user) => user.id !== String(id))}))
     },
     postUser: async (user) => {
-        await fetch(url + `users`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(user)})
+        await fetch(url + `/auth/register`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(user)})
         set((state) => ({users: [...state.users!, user]}))  
     }
 }))

@@ -4,7 +4,8 @@ import Input from "../ui/global/Input";
 import Label from "../ui/global/Label";
 import Title from "../ui/global/Title";
 import { useForm } from "react-hook-form";
-import { usersSlice } from "../model/store";
+
+import axios from "axios";
 
 interface IForm {
   login: string;
@@ -12,7 +13,6 @@ interface IForm {
 }
 
 export default function Login() {
-  const userSlice = usersSlice();
   const navigate = useNavigate();
 
   const {
@@ -23,23 +23,20 @@ export default function Login() {
     formState: { errors },
   } = useForm<IForm>();
 
-  const onSubmit = (data: IForm) => {
-    if (!userSlice.users!.find((item) => item.login === data.login)) {
-      setError("login", { type: "custom", message: "Пользователь не найден" });
-      clearErrors("pass");
-    } else if (
-      userSlice.users!.find((item) => item.login === data.login)!.password !==
-      data.pass
-    ) {
-      setError("pass", { type: "custom", message: "Пароль не верен" });
-      clearErrors("login");
-    } else {
-      clearErrors("login");
-      clearErrors("pass");
-      userSlice.setCurrentUser(
-        userSlice.users!.find((user) => user.login === data.login)!
-      );
-      navigate("/");
+  const onSubmit = async (data: { login: string; pass: string }) => {
+    try {
+      const response = await axios.post('http://localhost:3000/auth/login', {
+        login: data.login,
+        password: data.pass,
+      });
+
+      const token = response.data.access_token;
+      localStorage.setItem('token', token);
+
+      navigate('/');
+    } catch (error: any) {
+      console.error('Ошибка входа:', error);
+      alert('Неверный логин или пароль');
     }
   };
 
