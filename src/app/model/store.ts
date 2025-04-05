@@ -9,7 +9,7 @@ interface IUser {
     password: string;
 }
 
-interface IPost {
+export interface IPost {
     id: string;
     title: string;
     content: string;
