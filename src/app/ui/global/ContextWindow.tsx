@@ -11,7 +11,7 @@ export default function ContextWindow({
   return (
     <div
       className={classNames(
-        "absolute z-10 rounded-[10px] p-3 right-[10px] top-[50px] bg-[#D9D9D9] shadow-2xl flex-col gap-2",
+        "absolute z-10 rounded-[10px] p-3 right-[10px] top-[50px] bg-[#D9D9D9] dark:bg-dk-bg dark:shadow-main dark:shadow-sm shadow-2xl flex-col gap-2",
         { ["flex"]: visible, ["hidden"]: !visible }
       )}
       onClick={(e) => {

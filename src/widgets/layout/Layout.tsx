@@ -28,7 +28,7 @@ export default function Layout() {
       onClick={() => setVisibleUserModal(false)}
     >
       <motion.div
-        className="switchTheme w-full h-[74px] bg-lt-bg dark:bg-dk-bg dark:text-white flex justify-between pl-10 pr-5 border-main border-b-[2px]"
+        className="switchTheme w-full h-[74px] bg-lt-bg dark:bg-dk-bg dark:text-white flex justify-between pl-10 pr-7 border-main border-b-[2px]"
         variants={headerVar}
         initial="initial"
         animate="animate"
