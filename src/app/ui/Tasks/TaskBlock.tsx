@@ -8,7 +8,7 @@ interface TaskProps {
 }
 export default function TaskBlock({ nameCol, count, children }: TaskProps) {
   return (
-    <section className="basis-[calc(33.33%-50px)] rounded-[35px] border-collapse dark:text-white dark:bg-[#2E2E2E]">
+    <section className="basis-[calc(33.33%-50px)] rounded-[35px] border-collapse bg-white dark:text-white dark:bg-[#2E2E2E]">
       <div className="border-x-[2px] border-t-[2px] rounded-t-[35px] border-main w-full h-[71px] flex justify-between px-[30px] pt-1 items-center">
         <h2 className="text-[24px] ">{nameCol}</h2>
         <div className="flex gap-[24px]">

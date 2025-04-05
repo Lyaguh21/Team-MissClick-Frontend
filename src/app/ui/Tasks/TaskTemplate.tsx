@@ -21,7 +21,7 @@ export default function TaskTemplate({
   return (
     <div
       className={cn(
-        "w-full bg-[#202020] p-[20px] border-[2px] rounded-[16px] shadow-lg",
+        "w-full dark:bg-[#202020] p-[20px] border-[2px] rounded-[16px] shadow-lg",
         {
           [" border-main"]: priority === "Высокий",
           [" border-[#c7c22a]"]: priority === "Средний",
