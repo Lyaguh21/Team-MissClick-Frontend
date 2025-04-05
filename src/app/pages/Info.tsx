@@ -4,7 +4,7 @@ import { FaHistory } from "react-icons/fa";
 import PostTemplate from "../ui/Info/PostTemplate";
 export default function Info() {
   return (
-    <div className="px-[30px] flex flex-col ">
+    <div className="px-[30px] flex flex-col h-[calc(100vh-74px)] overflow-y-scroll scroll ">
       <div className="py-[10px] lg:py-[30px] flex justify-between">
         <Button
           appearance="grayButton"
@@ -21,7 +21,7 @@ export default function Info() {
           История изменений
         </Button>
       </div>
-      <div className="h-[751px] lg:h-[855px] scroll gap-[6px] overflow-y-scroll inline-flex flex-wrap ">
+      <div className="gap-[6px] inline-flex flex-wrap ">
         <PostTemplate />
         <PostTemplate />
         <PostTemplate />
