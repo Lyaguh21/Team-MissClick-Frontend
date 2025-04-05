@@ -22,6 +22,7 @@ export default function UserModal({ visible }: modalProps) {
   };
   return (
     <motion.div
+      onClick={(e: Event) => e.stopPropagation()}
       className={cn(
         "switchTheme w-[400px] border-[1px] dark:text-white bg-modal-bg dark:bg-dl-cart-bg rounded-[22px] absolute z-10 top-[7px] right-[7px] flex-col",
         {
