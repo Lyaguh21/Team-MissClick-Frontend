@@ -30,6 +30,10 @@ input[type="checkbox"] {
   border: 2px #ddd solid;
 }
 
+.checkbox--error {
+  border: 2px #ff0000 solid;
+}
+
 .checkbox--active {
   border-color: #ff3b30;
   background: #ff3b30;
