@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { postsSlice, usersSlice } from "../../model/store";
 import Button from "../global/Button";
 import { IoMdPhotos } from "react-icons/io";
+import api from "../../../axiosInstance";
 
 interface IProps {
   setCreateModal: (arg: boolean) => void;
@@ -15,8 +15,6 @@ interface IForm {
 }
 
 const CreateModal: React.FC<IProps> = ({ setCreateModal }) => {
-  const postSlice = postsSlice();
-  const userSlice = usersSlice();
 
   const {
     register,
@@ -34,24 +32,18 @@ const CreateModal: React.FC<IProps> = ({ setCreateModal }) => {
   };
 
   const onSubmit = (data: IForm) => {
-    let id;
-    const date = new Date();
-    if (postSlice.posts.length < 1) {
-      id = 1;
-    } else {
-      id = Number(postSlice.posts[postSlice.posts.length - 1].id) + 1;
-    }
-    postSlice.postPost({
-      id: String(id),
+    api.post("/create", {
       title: data.title,
       content: data.content,
-      image: img ? img : "",
-      createdAt: date.toLocaleDateString(),
-      updatedAt: date.toLocaleDateString(),
-      lastEditor: userSlice.currentUser!.login,
+      images: img ? [img] : [], // backend ждёт массив строк
+    })
+    .then(() => {
+      setCreateModal(false);
+    })
+    .catch((err) => {
+      console.error("Ошибка при создании статьи:", err);
+      alert("Не удалось создать статью");
     });
-    postSlice.fetchPosts();
-    setCreateModal(false);
   };
 
   return (

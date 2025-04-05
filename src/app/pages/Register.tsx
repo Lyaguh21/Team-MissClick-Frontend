@@ -5,7 +5,6 @@ import Label from "../ui/global/Label";
 import Title from "../ui/global/Title";
 import Checkbox from "../ui/global/Checkbox";
 import { useForm } from "react-hook-form";
-import { usersSlice } from "../model/store";
 import axios from "axios";
 
 export interface IForm {
@@ -19,13 +18,10 @@ export interface IForm {
 export default function Info() {
   const navigate = useNavigate();
 
-  const userSlice = usersSlice();
 
   const {
     register,
-    clearErrors,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<IForm>();
 
