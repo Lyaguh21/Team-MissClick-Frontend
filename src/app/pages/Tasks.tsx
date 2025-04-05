@@ -3,14 +3,19 @@ import Button from "../ui/global/Button";
 import { FaHistory } from "react-icons/fa";
 import TaskBlock from "../ui/Tasks/TaskBlock";
 import TaskTemplate from "../ui/Tasks/TaskTemplate";
+import { useState } from "react";
+import ModalWindow from "../ui/global/ModalWindow";
+import CreateTask from "../ui/Tasks/CreateTask";
 
 export default function Tasks() {
+  const [visibleCreateTask, setVisibleCreateTask] = useState(false);
   return (
     <div className="px-[30px] flex flex-col h-[calc(100vh-74px)]">
       <div className="py-[10px] lg:py-[30px] flex justify-between">
         <Button
           appearance="grayButton"
           className="flex gap-[14px] items-center"
+          onClick={() => setVisibleCreateTask(!visibleCreateTask)}
         >
           <FaPlus />
           Создать задачу
@@ -81,6 +86,10 @@ export default function Tasks() {
           />
         </TaskBlock>
       </div>
+
+      <ModalWindow isShow={visibleCreateTask}>
+        <CreateTask setCreateModal={setVisibleCreateTask} />
+      </ModalWindow>
     </div>
   );
 }
