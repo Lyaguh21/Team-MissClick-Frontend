@@ -82,9 +82,6 @@ export default function Info() {
             ))}
         </div>
       </div>
-      <ModalWindow isShow={createModal}>
-        <CreateModal setCreateModal={setCreateModal} />
-      </ModalWindow>
 
       <ModalWindow isShow={updateModal}>
         {currentPost && (

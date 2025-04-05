@@ -4,17 +4,31 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import ContextWindow from "../global/ContextWindow";
 import { GoTriangleLeft } from "react-icons/go";
+import { ITaskLess } from "../../pages/Tasks";
+
 interface TaskTemplateProps {
+  id: string;
+  content: string;
   title: string;
   priority: string;
   createdAt: any;
   plannedDate: any;
+  setOpenUpdateTask: any;
+  openUpdateTask: any;
+  image: string;
+  setCurrentTask: (task: ITaskLess | null) => void;
 }
 export default function TaskTemplate({
+  id,
+  content,
   title,
+  image,
   priority,
   createdAt,
   plannedDate,
+  setOpenUpdateTask,
+  openUpdateTask,
+  setCurrentTask,
 }: TaskTemplateProps) {
   const formateCreateDate = new Intl.DateTimeFormat("ru-RU").format(createdAt);
   const formatePlannedDate = new Intl.DateTimeFormat("ru-RU").format(
@@ -49,7 +63,21 @@ export default function TaskTemplate({
           <GoTriangleLeft className="self-center " />
           Сменить статус
         </h2>
-        <h2 className="cursor-pointer">Редактировать</h2>
+        <h2
+          className="cursor-pointer"
+          onClick={() => {
+            setOpenUpdateTask(!openUpdateTask);
+            setCurrentTask({
+              id: id,
+              title: title,
+              content: content,
+              image: image,
+              plannedDate: plannedDate,
+            });
+          }}
+        >
+          Редактировать
+        </h2>
         <h2 className="text-main cursor-pointer">Удалить</h2>
       </ContextWindow>
       <ContextWindow
