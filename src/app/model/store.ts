@@ -9,6 +9,24 @@ interface IUser {
     password: string;
 }
 
+interface IPost {
+    id: string;
+    title: string;
+    content: string;
+    image: string;
+    createdAt: string;
+    updatedAt: string;
+    lastEditor: string;
+}
+
+interface IPostsSlice {
+    posts: IPost[];
+    fetchPosts: () => void;
+    postPost: (post: IPost) => void;
+    deletePost: (id: number) => void;
+    updatePost: (post: IPost) => void;
+}
+
 interface IUsers {
     currentUser: IUser | null;
     users: IUser[] | null;
@@ -16,7 +34,7 @@ interface IUsers {
     updateUser: (user: IUser) => void;
     deleteUser: (id: number) => void;
     postUser: (user: IUser) => void;
-    setCurrentUser: (user: IUser) => void
+    setCurrentUser: (user: IUser | null) => void
 }
 
 export const usersSlice = create<IUsers>((set) => ({
@@ -35,7 +53,7 @@ export const usersSlice = create<IUsers>((set) => ({
             if (user.id === newUser.id) {
                 return newUser
             } else {
-                return newUser
+                return user
             }
         })}))
     },
@@ -48,3 +66,30 @@ export const usersSlice = create<IUsers>((set) => ({
         set((state) => ({users: [...state.users!, user]}))  
     }
 }))
+
+export const postsSlice = create<IPostsSlice>((set) => ({
+    posts: [],
+    fetchPosts: async () => {
+        const res = await fetch(url + `posts`)
+        set({posts: await res.json()})
+    },
+    postPost: async (post) => {
+        await fetch(url + `posts`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(post)})
+        set((state) => ({posts: [...state.posts, post]}))
+    },
+    updatePost: async (newPost) => {
+        await fetch(url + `posts/${newPost.id}`, {method: 'PATCH', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(newPost)}) 
+        set((state) => ({posts: state.posts.map((post: IPost) => {
+            if(post.id === newPost.id) {
+                return newPost
+            } else {
+                return post
+            }
+        })}))
+    },
+    deletePost: async (id) => {
+        await fetch(url + `posts/${id}`, {method: 'DELETE', headers: {'Content-Type': 'application/json'}})
+        set((state) => ({posts: state.posts.filter((post) => post.id !== String(id))}))
+    }
+}))
+

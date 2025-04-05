@@ -4,8 +4,8 @@ import { FaHistory } from "react-icons/fa";
 import PostTemplate from "../ui/Info/PostTemplate";
 export default function Info() {
   return (
-    <div className="px-[30px] flex flex-col ">
-      <div className="py-[8px] lg:py-[30px] pr-3 flex justify-between">
+    <div className="px-[30px] flex flex-col h-[calc(100vh-74px)] overflow-y-scroll scroll ">
+      <div className="py-[10px] lg:py-[30px] flex justify-between">
         <Button
           appearance="grayButton"
           className="flex gap-[14px] items-center"

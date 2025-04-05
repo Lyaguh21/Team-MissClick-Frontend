@@ -2,13 +2,18 @@ import cn from "classnames";
 import { motion } from "motion/react";
 import { useRef, useState } from "react";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { usersSlice } from "../../../app/model/store";
 
 interface modalProps {
   visible: boolean;
 }
 
 export default function UserModal({ visible }: modalProps) {
+
+  const navigate = useNavigate()
+
+  const userSlice = usersSlice()
 
   const containerRef = useRef<HTMLButtonElement | null>(null)
 
@@ -48,13 +53,15 @@ export default function UserModal({ visible }: modalProps) {
     >
       <div className="px-[21px] pt-[23px] border-b-[1px] flex flex-col gap-[23px]">
         <h2 className="font-bold">УЧЕТНАЯ ЗАПИСЬ</h2>
-        <div className="flex gap-[19px] mb-[23px]">
+        {userSlice.currentUser ? <div className="flex gap-[19px] mb-[23px]">
           <IoPersonCircleOutline className="size-[50px]" />
           <div className="py-[7px] ">
-            <h2 className="font-bold">Имя пользователя</h2>
-            <h2 className="text-[12px] font-medium">Логин</h2>
+            <h2 className="font-bold">{userSlice.currentUser.name}</h2>
+            <h2 className="text-[12px] font-medium">{userSlice.currentUser.login}</h2>
           </div>
-        </div>
+        </div>: 
+        <p>Войдите в аккаунт</p>
+        }
       </div>
       <div className="p-[23px] flex flex-col gap-[23px]">
         <div className="flex gap-[27px]">
@@ -67,9 +74,9 @@ export default function UserModal({ visible }: modalProps) {
             />
           </button>
         </div>
-        <Link to={"/auth/login"}>
-          <h2 className="text-main cursor-pointer">Вход</h2>
-        </Link>
+        <button>
+          <h2 className="text-main cursor-pointer" onClick={userSlice.currentUser ? () => userSlice.setCurrentUser(null) : () => navigate('/auth/login')}>{userSlice.currentUser ? 'Выход' : 'Вход'}</h2>
+        </button>
       </div>
     </motion.div>
   );
