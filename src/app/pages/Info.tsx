@@ -2,7 +2,7 @@ import Button from "../ui/global/Button";
 import { FaPlus } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
 import PostTemplate from "../ui/Info/PostTemplate";
-import { postsSlice } from "../model/store";
+import { IPost, postsSlice } from "../model/store";
 import { useEffect, useState } from "react";
 import ModalWindow from "../ui/global/ModalWindow";
 import CreateModal from "../ui/Info/CreateModal";
@@ -23,6 +23,9 @@ export default function Info() {
   const [createModal, setCreateModal] = useState<boolean>(false);
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [currentPost, setCurrentPost] = useState<IPostLess | null>(null);
+  const [currentShowenPost, setCurrentShowenPost] = useState<IPost | null>(
+    null
+  );
   const postSlice = postsSlice();
 
   useEffect(() => {
@@ -77,6 +80,7 @@ export default function Info() {
                 key={post.id}
                 setCurrentPost={setCurrentPost}
                 setUpdateModal={setUpdateModal}
+                setCurrentShowenPost={setCurrentShowenPost}
                 viewContext={() => setViewInfo(!viewInfo)}
               />
             ))}
@@ -102,7 +106,16 @@ export default function Info() {
       </ModalWindow>
 
       <ModalWindow isShow={viewInfo}>
-        <ViewInfo setViewInfo={setViewInfo} title={""} content={""} image={""} updatedAt={""} lastEditor={""} />
+        {currentShowenPost && (
+          <ViewInfo
+            setViewInfo={setViewInfo}
+            title={currentShowenPost!.title!}
+            content={currentShowenPost!.content!}
+            image={currentShowenPost!.image!}
+            updatedAt={currentShowenPost!.updatedAt!}
+            lastEditor={currentShowenPost!.lastEditor!}
+          />
+        )}
       </ModalWindow>
     </>
   );

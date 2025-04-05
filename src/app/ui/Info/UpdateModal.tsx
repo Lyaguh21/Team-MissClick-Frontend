@@ -36,7 +36,7 @@ const UpdateModal: React.FC<IProps> = ({ setUpdateModal, form, postid }) => {
     postSlice.updatePost({
       id: postid,
       title: data.title,
-      content: data.content,  
+      content: data.content,
       image: img ? img : "",
     });
     setTimeout(() => postSlice.fetchPosts(), 500);

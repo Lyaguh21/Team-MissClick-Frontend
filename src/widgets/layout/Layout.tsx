@@ -5,6 +5,11 @@ import LinkButton from "./components/LinkButton";
 import ProfileButton from "./components/ProfileButton";
 import { useState } from "react";
 import UserModal from "./components/UserModal";
+import {
+  HiOutlineAcademicCap,
+  HiOutlineCode,
+  HiOutlineDocumentText,
+} from "react-icons/hi";
 
 export default function Layout() {
   const [visibleUserModal, setVisibleUserModal] = useState(false);
@@ -35,9 +40,33 @@ export default function Layout() {
       >
         <section className="flex h-full items-center">
           <Logotype />
-          <LinkButton to={"/"} children={"Полезная информация"} />
-          <LinkButton to={"/tasks"} children={"Задачи"} />
-          <LinkButton to={"/admin"} children={"Администрирование"} />
+          <LinkButton
+            to={"/"}
+            children={
+              <>
+                <HiOutlineAcademicCap className="text-[2rem] mr-1" />
+                Полезная информация
+              </>
+            }
+          />
+          <LinkButton
+            to={"/tasks"}
+            children={
+              <>
+                <HiOutlineDocumentText className="text-[2rem] mr-1" />
+                Задачи
+              </>
+            }
+          />
+          <LinkButton
+            to={"/admin"}
+            children={
+              <>
+                <HiOutlineCode className="text-[2rem] mr-1" />
+                Администрирование
+              </>
+            }
+          />
         </section>
 
         <ProfileButton onClick={openUserModal} />

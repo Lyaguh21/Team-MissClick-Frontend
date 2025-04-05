@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { TbDots } from "react-icons/tb";
 import ContextWindow from "../global/ContextWindow";
-import { postsSlice } from "../../model/store";
-import { MdOutlineHideImage } from "react-icons/md";
+import { IPost, postsSlice } from "../../model/store";
 
 interface PostTemplateProps {
   id: number;
@@ -20,6 +19,7 @@ interface PostTemplateProps {
     image: string;
   }) => void;
   setUpdateModal: (arg: boolean) => void;
+  setCurrentShowenPost: (post: IPost) => void;
 }
 
 export default function PostTemplate({
@@ -32,12 +32,13 @@ export default function PostTemplate({
   viewContext,
   setCurrentPost,
   setUpdateModal,
+  setCurrentShowenPost,
 }: PostTemplateProps) {
   const postSlice = postsSlice();
 
   const deleteHandle = () => {
     postSlice.deletePost(id);
-    postSlice.fetchPosts();
+    setTimeout(() => postSlice.fetchPosts(), 500);
   };
 
   const [visibleContext, setVisibleContext] = useState(false);
@@ -55,6 +56,14 @@ export default function PostTemplate({
           onClick={() => {
             viewContext();
             setVisibleContext(false);
+            setCurrentShowenPost({
+              title: title,
+              content: content,
+              lastEditor: author,
+              updatedAt: createdAt,
+              id: String(id),
+              image: image,
+            });
           }}
           className=" cursor-pointer"
         >
@@ -81,7 +90,9 @@ export default function PostTemplate({
         </h2>
       </ContextWindow>
       <div className="flex justify-between mb-[10px]">
-        <h2 className="text-[24px]">{title}</h2>
+        <h2 className="text-[24px] w-[350px] text-ellipsis overflow-hidden text-nowrap">
+          {title}
+        </h2>
         <TbDots
           className="self-center size-7 hover:opacity-70 stroke-main"
           onClick={(e) => {
@@ -91,8 +102,8 @@ export default function PostTemplate({
         />
       </div>
       <div className="flex justify-between gap-[10px]">
-        <div className="flex flex-col justify-between h-50">
-          <p className="mb-4">{content}</p>
+        <div className="flex flex-col justify-between h-50 overflow-hidden ">
+          <p className="mb-4 h-[160px] overflow-hidden ">{content}</p>
           <div className="basis-1/2 flex flex-col justify-end">
             <h2 className="switchTheme w-full bg-child-post dark:bg-dk-bg p-[8px] rounded-br-[10px]">
               Создано: {createdAt}
@@ -102,7 +113,7 @@ export default function PostTemplate({
         {image && (
           <img
             src={image}
-            className="switchTheme  object-cover bg-child-post dark:bg-dk-bg aspect-square rounded-[10px] w-50 border-[1px] border-main"
+            className="switchTheme object-cover bg-child-post dark:bg-dk-bg aspect-square rounded-[10px] w-50 border-[1px] border-main"
           />
         )}
       </div>
