@@ -19,7 +19,7 @@ export default function Button({
         {
           ["w-[143px] h-[43px] bg-main hover:bg-hover-main active:bg-main text-white text-base font-normal rounded-full "]:
             appearance == "base",
-          ["px-[30px] py-[19px] bg-[#EAEAEA] text-[24px] hover:bg-[#bcbcbc] active:bg-[#EAEAEA] duration-300"]:
+          ["h-[60px] px-[30px]  bg-[#EAEAEA] text-[24px] hover:bg-[#bcbcbc] active:bg-[#EAEAEA] duration-300"]:
             appearance == "grayButton",
         },
         className

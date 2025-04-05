@@ -4,22 +4,38 @@ import { FaHistory } from "react-icons/fa";
 import PostTemplate from "../ui/Info/PostTemplate";
 export default function Info() {
   return (
-    <div className="px-[26px]">
-      <div className="py-[50px] flex justify-between">
-        <Button appearance="grayButton" className="flex gap-[14px]">
-          <FaPlus className="self-center" />
+    <div className="px-[30px] flex flex-col ">
+      <div className="py-[10px] flex justify-between">
+        <Button
+          appearance="grayButton"
+          className="flex gap-[14px] items-center"
+        >
+          <FaPlus />
           Создать статью
         </Button>
-        <Button appearance="grayButton" className="flex gap-[14px]">
-          <FaHistory className="self-center" />
+        <Button
+          appearance="grayButton"
+          className="flex gap-[14px] items-center"
+        >
+          <FaHistory />
           История изменений
         </Button>
       </div>
-      <div className="gap-[15px] flex">
+      <div className="h-[853px] scroll gap-[6px] overflow-y-scroll inline-flex flex-wrap ">
         <PostTemplate />
         <PostTemplate />
         <PostTemplate />
         <PostTemplate />
+        <PostTemplate />
+        <PostTemplate />
+
+        {/* <PostTemplate />
+        <PostTemplate />
+        <PostTemplate />
+
+        <PostTemplate />
+        <PostTemplate />
+        <PostTemplate /> */}
       </div>
     </div>
   );

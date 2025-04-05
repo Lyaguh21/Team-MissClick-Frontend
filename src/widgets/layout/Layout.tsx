@@ -42,7 +42,7 @@ export default function Layout() {
 
         <ProfileButton onClick={openUserModal} />
       </motion.div>
-      <div className="relative">
+      <div className="relative h-full ">
         <UserModal visible={visibleUserModal} />
         <Outlet />
       </div>

@@ -53,3 +53,13 @@ input[type="checkbox"] {
   border-color: #ff3b30;
   background: #ff3b30;
 }
+
+.scroll::-webkit-scrollbar {
+  width: 5px;
+  background-color: rgba(48, 47, 47, 0.1);
+  border-radius: 10px;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #de3127;
+  border-radius: 10px;
+}

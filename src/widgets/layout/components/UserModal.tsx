@@ -2,6 +2,7 @@ import cn from "classnames";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { Link } from "react-router";
 
 interface modalProps {
   visible: boolean;
@@ -48,7 +49,9 @@ export default function UserModal({ visible }: modalProps) {
             Switch
           </button>
         </div>
-        <h2 className="text-main cursor-pointer">Выход</h2>
+        <Link to={"/auth/login"}>
+          <h2 className="text-main cursor-pointer">Вход</h2>
+        </Link>
       </div>
     </motion.div>
   );
