@@ -23,6 +23,8 @@ export default function Button({
             appearance == "grayButton",
           ["w-[248px] h-[60px] uppercase bg-main hover:bg-hover-main active:bg-main text-white font-semibold rounded-full"]:
             appearance == "big",
+          ["w-[143px] h-[43px] bg-none hover:bg-hover-main active:bg-none text-main hover:text-white border-[2px] border-main text-base font-normal rounded-full "]:
+            appearance == "cancelModal",
         },
         className
       )}
