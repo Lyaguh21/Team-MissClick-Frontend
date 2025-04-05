@@ -2,7 +2,7 @@ import cn from "classnames";
 import { motion } from "motion/react";
 import { useRef, useState } from "react";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { usersSlice } from "../../../app/model/store";
 
 interface modalProps {
@@ -10,6 +10,8 @@ interface modalProps {
 }
 
 export default function UserModal({ visible }: modalProps) {
+
+  const navigate = useNavigate()
 
   const userSlice = usersSlice()
 
@@ -72,9 +74,9 @@ export default function UserModal({ visible }: modalProps) {
             />
           </button>
         </div>
-        <Link to={"/auth/login"}>
-          <h2 className="text-main cursor-pointer">Вход</h2>
-        </Link>
+        <button>
+          <h2 className="text-main cursor-pointer" onClick={userSlice.currentUser ? () => userSlice.setCurrentUser(null) : () => navigate('/auth/login')}>{userSlice.currentUser ? 'Выход' : 'Вход'}</h2>
+        </button>
       </div>
     </motion.div>
   );
