@@ -72,7 +72,7 @@ export default function Info() {
                 title={post.title}
                 content={post.content}
                 author={post.lastEditor}
-                createdAt={post.createdAt}
+                createdAt={post.createdAt.slice(0, 10)}
                 image={post.image}
                 key={post.id}
                 setCurrentPost={setCurrentPost}

@@ -41,7 +41,7 @@ const ModalWindow: React.FC<IProps> = ({ children, isShow }) => {
         >
           <motion.div
             variants={windowVar}
-            className="px-5 py-4 min-w-150 bg-lt-bg dark:bg-dk-bg rounded-xl dark:text-white dark:shadow-main dark:shadow-md"
+            className="px-5 py-4 min-w-150 z-20 bg-lt-bg dark:bg-dk-bg rounded-xl dark:text-white dark:shadow-main dark:shadow-md"
           >
             {children}
           </motion.div>

@@ -26,7 +26,7 @@ export default function PostTemplate({
   content,
   createdAt,
   author,
-  image = "",
+  image = " ",
   setCurrentPost,
   setUpdateModal,
 }: PostTemplateProps) {
@@ -58,6 +58,7 @@ export default function PostTemplate({
             });
             setUpdateModal(true);
           }}
+          className="cursor-pointer z-10"
         >
           Редактировать
         </h2>

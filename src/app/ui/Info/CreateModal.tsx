@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Button from "../global/Button";
 import { IoMdPhotos } from "react-icons/io";
 import api from "../../../axiosInstance";
+import { postsSlice } from "../../model/store";
 
 interface IProps {
   setCreateModal: (arg: boolean) => void;
@@ -15,6 +16,7 @@ interface IForm {
 }
 
 const CreateModal: React.FC<IProps> = ({ setCreateModal }) => {
+  const postSlice = postsSlice();
 
   const {
     register,
@@ -32,18 +34,20 @@ const CreateModal: React.FC<IProps> = ({ setCreateModal }) => {
   };
 
   const onSubmit = (data: IForm) => {
-    api.post("/create", {
-      title: data.title,
-      content: data.content,
-      images: img ? [img] : [], // backend ждёт массив строк
-    })
-    .then(() => {
-      setCreateModal(false);
-    })
-    .catch((err) => {
-      console.error("Ошибка при создании статьи:", err);
-      alert("Не удалось создать статью");
-    });
+    api
+      .post("/create", {
+        title: data.title,
+        content: data.content,
+        images: img ? [img] : [], // backend ждёт массив строк
+      })
+      .then(() => {
+        postSlice.fetchPosts();
+        setCreateModal(false);
+      })
+      .catch((err) => {
+        console.error("Ошибка при создании статьи:", err);
+        alert("Не удалось создать статью");
+      });
   };
 
   return (
