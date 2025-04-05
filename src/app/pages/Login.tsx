@@ -44,7 +44,7 @@ export default function Login() {
   };
 
   return (
-    <section className="px-[150px] pt-[180px]">
+    <section className="px-[150px] pt-[180px] dark:bg-dk-bg h-full dark:text-white ">
       <Title className="mb-[30px]">Вход</Title>
       <form
         onSubmit={handleSubmit(onSubmit)}
