@@ -5,13 +5,10 @@ import { Link } from "react-router";
 import { useEffect } from "react";
 import { auditSlice } from "../model/store";
 
-interface auditData{
+interface auditData {
   event: string;
   title: string;
-  
-
 }
-
 
 export default function JournalAudit() {
   const auditsSlice = auditSlice();
@@ -34,7 +31,7 @@ export default function JournalAudit() {
           </Button>
         </Link>
       </div>
-      <div className="w-full flex flex-col gap-[10px]">
+      <div className="w-full flex gap-[10px]">
         {auditsSlice.audit.map((e) => (
           <HistoryTemplates
             key={e.id}

@@ -135,8 +135,9 @@ export default function TaskTemplate({
         )}
       </ContextWindow>
       <div className="flex justify-between ">
-        <h2>
-          Название: <b>{title}</b>
+        <h2 className=" flex ">
+          Название:{" "}
+          <b className="w-[250px] overflow-hidden text-ellipsis">{title}</b>
         </h2>
         <FaEllipsisVertical
           className="self-center mr-[5px] "
