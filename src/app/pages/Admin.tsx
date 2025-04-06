@@ -71,7 +71,7 @@ export default function Info() {
         <section className="taskScroll px-[5px] w-200 flex flex-col items-center gap-3 mt-4 overflow-y-scroll h-180 pb-10">
           <SearchBar />
 
-          {usersLOCAL?.map((user) => (
+          {users?.map((user) => (
             <UserCard user={{ ...user }} />
           ))}
         </section>
