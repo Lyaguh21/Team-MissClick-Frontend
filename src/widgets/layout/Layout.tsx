@@ -3,15 +3,22 @@ import { Outlet } from "react-router";
 import Logotype from "./components/Logotype";
 import LinkButton from "./components/LinkButton";
 import ProfileButton from "./components/ProfileButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserModal from "./components/UserModal";
 import {
   HiOutlineAcademicCap,
   HiOutlineCode,
   HiOutlineDocumentText,
 } from "react-icons/hi";
+import { usersSlice } from "../../app/model/store";
 
 export default function Layout() {
+  const userSlice = usersSlice();
+
+  useEffect(() => {
+    userSlice.fetchUsers();
+  }, []);
+
   const [visibleUserModal, setVisibleUserModal] = useState(false);
 
   const headerVar = {

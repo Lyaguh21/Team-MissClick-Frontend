@@ -5,10 +5,11 @@ import api from "../../axiosInstance";
 const url = "http://localhost:3000/";
 
 interface IUser {
-  id: string;
+  id: number;
   name: string;
   login: string;
-  password: string;
+  createdAt: string;
+  roles: ("USER" | "ADMIN")[];
 }
 
 export interface IPost {
@@ -46,8 +47,8 @@ export const usersSlice = create<IUsers>((set) => ({
     set({ currentUser: user });
   },
   fetchUsers: async () => {
-    const res = await fetch(url + "users");
-    set({ users: await res.json() });
+    const res = await axios.get("http://localhost:3000/toAll");
+    set({ users: (await res).data });
   },
   updateUser: async (newUser) => {
     await fetch(url + `users/${newUser.id}`, {
@@ -71,7 +72,7 @@ export const usersSlice = create<IUsers>((set) => ({
       headers: { "Content-Type": "application/json" },
     });
     set((state) => ({
-      users: state.users?.filter((user) => user.id !== String(id)),
+      users: state.users?.filter((user) => user.id !== id),
     }));
   },
   postUser: async (user) => {
@@ -88,7 +89,7 @@ export const postsSlice = create<IPostsSlice>((set) => ({
   posts: [],
   fetchPosts: async () => {
     const res = api.get("http://localhost:3000/viewAll");
-    console.log((await res).data)
+    console.log((await res).data);
     set({ posts: (await res).data });
   },
   postPost: async (post) => {
