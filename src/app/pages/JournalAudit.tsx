@@ -17,6 +17,7 @@ export default function JournalAudit() {
     auditsSlice.fetchAudit();
   }, []);
 
+  console.log(auditsSlice.audit);
   return (
     <div className="px-[30px] w-full flex flex-col h-[calc(100vh-74px)] overflow-y-scroll scroll">
       <div className="py-[10px] lg:py-[30px] flex justify-between">

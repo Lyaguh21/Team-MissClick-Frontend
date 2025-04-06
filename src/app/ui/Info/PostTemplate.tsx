@@ -46,7 +46,7 @@ export default function PostTemplate({
   const [imageVisible, setImageVisible] = useState<boolean>(true);
   return (
     <div
-      className="switchTheme max-h-90 basis-[calc(33.33%-6px)] h-auto flex flex-col justify-between relative dark:text-white bg-post-card-bg dark:bg-post-card-dk-bg rounded-[15px] border-[1px] border-main p-[25px]"
+      className="switchTheme max-h-90 basis-[calc(33.33%-6px)] h-auto flex flex-col justify-between relative dark:text-white bg-post-card-bg dark:bg-post-card-dk-bg rounded-[15px] border-[1px] border-main p-[15px]"
       onClick={(e) => {
         e.stopPropagation();
         setVisibleContext(false);

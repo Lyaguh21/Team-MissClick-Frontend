@@ -45,6 +45,7 @@ export default function TaskTemplate({
 
   return (
     <div
+      key={id}
       className={cn(
         "w-full dark:bg-[#202020] p-[20px] border-[2px] rounded-[16px] shadow-lg relative",
         {

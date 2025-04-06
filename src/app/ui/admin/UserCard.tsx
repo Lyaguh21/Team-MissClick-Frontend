@@ -13,7 +13,10 @@ interface IProps {
 
 const UserCard: React.FC<IProps> = ({ user }) => {
   return (
-    <div className="border-main border-[2px] rounded-2xl flex flex-col gap-2 p-3">
+    <div
+      className="border-main border-[2px] w-full rounded-2xl flex flex-col gap-2 p-3"
+      key={user.id}
+    >
       <div className="flex justify-between">
         {" "}
         <p>Логин: {user.login}</p> <UserContextMenu />{" "}
