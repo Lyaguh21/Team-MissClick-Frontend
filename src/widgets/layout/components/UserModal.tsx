@@ -95,7 +95,11 @@ export default function UserModal({ visible }: modalProps) {
             className="text-main cursor-pointer"
             onClick={
               userSlice.currentUser
-                ? () => userSlice.setCurrentUser(null)
+                ? () => {
+                    userSlice.setCurrentUser(null);
+                    localStorage.removeItem("token");
+                    navigate("/auth/login");
+                  }
                 : () => navigate("/auth/login")
             }
           >

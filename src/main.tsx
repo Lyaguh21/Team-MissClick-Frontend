@@ -13,11 +13,16 @@ import Admin from "./app/pages/Admin.tsx";
 import Layout from "./widgets/layout/Layout.tsx";
 import LayoutRegister from "./widgets/layout/LayoutRegister.tsx";
 import JournalAudit from "./app/pages/JournalAudit.tsx";
+import RequireAuth from "./helpers/RequireAuth.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <RequireAuth>
+        <Layout />
+      </RequireAuth>
+    ),
     children: [
       {
         path: "/",
