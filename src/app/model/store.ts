@@ -30,6 +30,39 @@ export interface IPost {
   lastEditor?: string;
 }
 
+type status = "CURRENT" | "POSTPONED" | "COMPLETED";
+
+interface ITaskUpdate {
+  id: number;
+  title: string;
+  content:string;
+  image: string;
+  plannedDate: Date;
+}
+
+interface ITaskPost {
+  status: status;
+  title: string;
+  content: string;
+  image: string;
+  priority: string;
+  plannedDate: Date;
+  assignedTo: string;
+}
+
+interface ITask extends ITaskPost {
+  id: string;
+}
+
+interface ITaskSlice {
+  tasks: ITask[];
+  fetchTasks: () => void;
+  postTask: (task: ITaskPost) => void;
+  deleteTask: (id: number) => void;
+  updateTask: (task: ITaskUpdate) => void;
+  updateStatus: (id: string, status: status) => void;
+}
+
 interface IPostsSlice {
   posts: IPost[];
   fetchPosts: () => void;
@@ -69,7 +102,7 @@ export const usersSlice = create<IUsers>((set) => ({
     set({ currentUser: user });
   },
   fetchUsers: async () => {
-    const res = await axios.get("http://localhost:3000/toAll");
+    const res = axios.get("http://localhost:3000/toAll");
     set({ users: (await res).data });
   },
   updateUser: async (newUser) => {
@@ -134,5 +167,25 @@ export const postsSlice = create<IPostsSlice>((set) => ({
     await axios.patch("http://localhost:3000/delete", {
       id: id,
     });
+  },
+}));
+
+export const tasksSlice = create<ITaskSlice>((set) => ({
+  tasks: [],
+  fetchTasks: async () => {
+    const res = await api.get("http://localhost:3000/tasks/getall");
+    set({ tasks: res.data });
+  },
+  postTask: async (task) => {
+    await api.post("http://localhost:3000/tasks/create", task);
+  },
+  deleteTask: async (id) => {
+    await api.patch("http://localhost:3000/tasks/delete", { id: id });
+  },
+  updateTask: async (task) => {
+    await api.patch("http://localhost:3000/tasks/update", task);
+  },
+  updateStatus: async (id, status) => {
+    await api.patch("http://localhost:3000/tasks/statusupdate", { id, status });
   },
 }));

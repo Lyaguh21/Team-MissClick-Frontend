@@ -3,21 +3,30 @@ import Button from "../ui/global/Button";
 import { FaHistory } from "react-icons/fa";
 import TaskBlock from "../ui/Tasks/TaskBlock";
 import TaskTemplate from "../ui/Tasks/TaskTemplate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalWindow from "../ui/global/ModalWindow";
 import CreateTask from "../ui/Tasks/CreateTask";
 import UpdateTask from "../ui/Tasks/UpdateTask";
 import { NavLink } from "react-router";
+import { tasksSlice } from "../model/store";
 
 export interface ITaskLess {
   title: string;
   content: string;
-  plannedDate: string;
+  plannedDate: Date;
   image: string;
   id: string;
 }
 
 export default function Tasks() {
+  const taskSlice = tasksSlice();
+
+  const tasks = taskSlice.tasks;
+
+  useEffect(() => {
+    taskSlice.fetchTasks();
+  }, []);
+
   const [visibleCreateTask, setVisibleCreateTask] = useState(false);
   const [openUpdateTask, setOpenUpdateTask] = useState(false);
   const [currentTask, setCurrentTask] = useState<ITaskLess | null>(null);
@@ -43,85 +52,55 @@ export default function Tasks() {
         </NavLink>
       </div>
       <div className="flex justify-between">
-        <TaskBlock nameCol="Отложенные задачи" count={4}>
-          <TaskTemplate
-            id="1"
-            image=""
-            content="лоравыждоаждоавыждорваыфждорфавыжоыавло ыар фжывдлор афжвыд оажфдвыл оажф лывофджыал офажы"
-            openUpdateTask={openUpdateTask}
-            setOpenUpdateTask={setOpenUpdateTask}
-            title="Починить чайник"
-            priority="Высокий"
-            createdAt={Date.now()}
-            plannedDate={23 / 23 / 2001}
-            setCurrentTask={setCurrentTask}
-          />
-          <TaskTemplate
-            id="2"
-            image=""
-            content="лоравыждоаждоавыждорваыфждорфавыжоыавло ыар фжывдлор афжвыд оажфдвыл оажф лывофджыал офажы"
-            openUpdateTask={openUpdateTask}
-            setOpenUpdateTask={setOpenUpdateTask}
-            title="Починить чайник"
-            priority="Средний"
-            createdAt={Date.now()}
-            plannedDate={23 / 23 / 2001}
-            setCurrentTask={setCurrentTask}
-          />
-          <TaskTemplate
-            id="3"
-            image=""
-            content="лоравыждоаждоавыждорваыфждорфавыжоыавло ыар фжывдлор афжвыд оажфдвыл оажф лывофджыал офажы"
-            openUpdateTask={openUpdateTask}
-            setOpenUpdateTask={setOpenUpdateTask}
-            title="Починить чайник"
-            priority="Низкий"
-            createdAt={Date.now()}
-            plannedDate={23 / 23 / 2001}
-            setCurrentTask={setCurrentTask}
-          />
-          <TaskTemplate
-            id="4"
-            image=""
-            content="лоравыждоаждоавыждорваыфждорфавыжоыавло ыар фжывдлор афжвыд оажфдвыл оажф лывофджыал офажы"
-            openUpdateTask={openUpdateTask}
-            setOpenUpdateTask={setOpenUpdateTask}
-            title="Починить чайник"
-            priority="Высокий"
-            createdAt={Date.now()}
-            plannedDate={23 / 23 / 2001}
-            setCurrentTask={setCurrentTask}
-          />
+        <TaskBlock
+          nameCol="Отложенные задачи"
+          count={tasks.filter((task) => task.status === "POSTPONED").length}
+        >
+          {tasks.length > 0 &&
+            tasks
+              .filter((task) => task.status === "POSTPONED")
+              .map((task) => (
+                <TaskTemplate
+                  {...task}
+                  setOpenUpdateTask={setOpenUpdateTask}
+                  openUpdateTask={openUpdateTask}
+                  setCurrentTask={setCurrentTask}
+                />
+              ))}
         </TaskBlock>
 
-        <TaskBlock nameCol="Текущие задачи" count={1}>
-          <TaskTemplate
-            id="5"
-            image=""
-            content="лоравыждоаждоавыждорваыфждорфавыжоыавло ыар фжывдлор афжвыд оажфдвыл оажф лывофджыал офажы"
-            openUpdateTask={openUpdateTask}
-            setOpenUpdateTask={setOpenUpdateTask}
-            title="Починить чайник"
-            priority="Высокий"
-            createdAt={Date.now()}
-            plannedDate={23 / 23 / 2001}
-            setCurrentTask={setCurrentTask}
-          />
+        <TaskBlock
+          nameCol="Текущие задачи"
+          count={tasks.filter((task) => task.status === "CURRENT").length}
+        >
+          {tasks.length > 0 &&
+            tasks
+              .filter((task) => task.status === "CURRENT")
+              .map((task) => (
+                <TaskTemplate
+                  {...task}
+                  setOpenUpdateTask={setOpenUpdateTask}
+                  openUpdateTask={openUpdateTask}
+                  setCurrentTask={setCurrentTask}
+                />
+              ))}
         </TaskBlock>
 
-        <TaskBlock nameCol="Выполненные задачи" count={1}>
-          <TaskTemplate
-            id="6"
-            image=""
-            content="лоравыждоаждоавыждорваыфждорфавыжоыавло ыар фжывдлор афжвыд оажфдвыл оажф лывофджыал офажы"
-            openUpdateTask={openUpdateTask}
-            setOpenUpdateTask={setOpenUpdateTask}
-            title="Починить чайник"
-            priority="Высокий"
-            createdAt={Date.now()}
-            plannedDate={23 / 23 / 2001}
-            setCurrentTask={setCurrentTask}
-          />
+        <TaskBlock
+          nameCol="Выполненные задачи"
+          count={tasks.filter((task) => task.status === "COMPLETED").length}
+        >
+          {tasks.length > 0 &&
+            tasks
+              .filter((task) => task.status === "COMPLETED")
+              .map((task) => (
+                <TaskTemplate
+                  {...task}
+                  setOpenUpdateTask={setOpenUpdateTask}
+                  openUpdateTask={openUpdateTask}
+                  setCurrentTask={setCurrentTask}
+                />
+              ))}
         </TaskBlock>
       </div>
 

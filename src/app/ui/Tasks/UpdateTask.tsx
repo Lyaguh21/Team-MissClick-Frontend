@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { postsSlice, usersSlice } from "../../model/store";
+import { tasksSlice } from "../../model/store";
 
 interface IProps {
   setUpdateModal: (arg: boolean) => void;
@@ -13,18 +13,22 @@ interface IForm {
   content: string;
   image: string | null;
   id: string;
-  plannedDate: string;
+  plannedDate: Date;
 }
 
 const UpdateTask: React.FC<IProps> = ({ setUpdateModal, form, taskid }) => {
-  const postSlice = postsSlice();
-  const userSlice = usersSlice();
+  const taskSlice = tasksSlice();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IForm>({ defaultValues: form });
+  } = useForm<IForm>({
+    defaultValues: {
+      ...form,
+      plannedDate: form.plannedDate.slice(0, 10).split("-").reverse().join("."),
+    },
+  });
 
   const [img, setImg] = useState<string | null>(form.image);
 
@@ -36,17 +40,14 @@ const UpdateTask: React.FC<IProps> = ({ setUpdateModal, form, taskid }) => {
   };
 
   const onSubmit = (data: IForm) => {
-    const date = new Date();
-    postSlice.updatePost({
-      id: String(taskid),
+    taskSlice.updateTask({
+      id: Number(taskid),
       title: data.title,
       content: data.content,
       image: img ? img : "",
-      createdAt: postSlice.posts.find((post) => post.id === taskid)!.createdAt,
-      updatedAt: date.toLocaleDateString(),
-      lastEditor: userSlice.currentUser!.login,
+      plannedDate: new Date(data.plannedDate),
     });
-    postSlice.fetchPosts();
+    setTimeout(() => taskSlice.fetchTasks(), 300)    ;
     setUpdateModal(false);
   };
 
@@ -75,6 +76,25 @@ const UpdateTask: React.FC<IProps> = ({ setUpdateModal, form, taskid }) => {
 
             {errors.title && (
               <p className="text-red-500">{errors.title.message}</p>
+            )}
+
+            <p>Крайний срок</p>
+
+            <input
+              type="text"
+              className="outline-none bg-child-post rounded-lg px-2 py-1 w-80"
+              placeholder={"дд.мм.гггг"}
+              {...register("plannedDate", {
+                required: "Поле не может быть пустым",
+                pattern: {
+                  value: /[0-9]{2}\.[0-9]{2}\.[0-9]{4}/g,
+                  message: "неверный формат даты",
+                },
+              })}
+            />
+
+            {errors.plannedDate && (
+              <p className="text-red-500">{errors.plannedDate.message}</p>
             )}
           </div>
 

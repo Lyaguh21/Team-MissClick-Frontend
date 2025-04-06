@@ -1,9 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Button from "../global/Button";
-
-import api from "../../../axiosInstance";
-import { postsSlice } from "../../model/store";
+import { tasksSlice } from "../../model/store";
 import { ImCross } from "react-icons/im";
 
 interface IProps {
@@ -14,11 +12,12 @@ interface IForm {
   title: string;
   content: string;
   img: string | null;
-  date: string;
+  plannedDate: string;
+  priority: string;
 }
 
 const CreateTask: React.FC<IProps> = ({ setCreateModal }) => {
-  const postSlice = postsSlice();
+  const taskSlice = tasksSlice();
   const nowDate = new Intl.DateTimeFormat("ru-RU").format(new Date());
 
   const {
@@ -28,19 +27,15 @@ const CreateTask: React.FC<IProps> = ({ setCreateModal }) => {
   } = useForm<IForm>();
 
   const onSubmit = (data: IForm) => {
-    api
-      .post("/create", {
-        title: data.title,
-        content: data.content,
-      })
-      .then(() => {
-        postSlice.fetchPosts();
-        setCreateModal(false);
-      })
-      .catch((err) => {
-        console.error("Ошибка при создании статьи:", err);
-        alert("Не удалось создать статью");
-      });
+    taskSlice.postTask({
+      ...data,
+      plannedDate: new Date(data.plannedDate),
+      status: "POSTPONED",
+      assignedTo: "1",
+      image: "",
+    });
+    setTimeout(() => taskSlice.fetchTasks(), 300);
+    setCreateModal(false);
   };
 
   return (
@@ -82,7 +77,7 @@ const CreateTask: React.FC<IProps> = ({ setCreateModal }) => {
                 placeholder="Дедлайн"
                 type="text"
                 className="w-[90px] outline-none"
-                {...register("date", {
+                {...register("plannedDate", {
                   required: "это обязательное поле",
                   pattern: {
                     value: /[0-9]{2}\.[0-9]{2}\.[0-9]{4}/g,
@@ -90,17 +85,20 @@ const CreateTask: React.FC<IProps> = ({ setCreateModal }) => {
                   },
                 })}
               />
-              {errors.date && (
-                <p className="text-red-500">{errors.date.message}</p>
+              {errors.plannedDate && (
+                <p className="text-red-500">{errors.plannedDate.message}</p>
               )}
             </div>
 
             <div className="bg-child-post rounded-[10px] p-[14px] ">
               Приоритет:
-              <select className="w-[90px] outline-none">
-                <option value={"Высокий"}>Высокий</option>
-                <option value={"Средний"}>Средний</option>
-                <option value={"Низкий"}>Низкий</option>
+              <select
+                className="w-[90px] outline-none"
+                {...register("priority")}
+              >
+                <option value={"HIGH"}>Высокий</option>
+                <option value={"MEDIUM"}>Средний</option>
+                <option value={"LOW"}>Низкий</option>
               </select>
             </div>
 
