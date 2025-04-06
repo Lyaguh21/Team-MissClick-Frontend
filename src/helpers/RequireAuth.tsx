@@ -6,6 +6,7 @@ export default function RequireAuth({ children }: { children: ReactNode }) {
   if (!jwt) {
     return <Navigate to={"/auth/login"} replace />;
   } else {
+    
     return children;
   }
 }

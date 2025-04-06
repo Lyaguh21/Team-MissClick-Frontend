@@ -20,7 +20,9 @@ export default function JournalAudit() {
   return (
     <div className="px-[30px] w-full flex flex-col h-[calc(100vh-74px)] overflow-y-scroll scroll">
       <div className="py-[10px] lg:py-[30px] flex justify-between">
-        <h2 className="text-[40px] font-bold">История изменений</h2>
+        <h2 className="text-[40px] font-bold dark:text-white">
+          История изменений
+        </h2>
         <Link to="/">
           <Button
             appearance="grayButton"
@@ -31,12 +33,12 @@ export default function JournalAudit() {
           </Button>
         </Link>
       </div>
-      <div className="w-full flex gap-[10px]">
+      <div className="w-full flex flex-wrap gap-[10px]">
         {auditsSlice.audit.map((e) => (
           <HistoryTemplates
             key={e.id}
             title={e.article || "Без названия"}
-            user={e.user.name}
+            user={e.user}
             type={e.event}
             dateChange={new Date(e.date).toLocaleDateString("ru-RU")}
           />

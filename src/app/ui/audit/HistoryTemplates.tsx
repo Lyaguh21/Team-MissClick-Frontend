@@ -1,7 +1,7 @@
 interface HistoryProps {
   title: string;
   type: string;
-  user: string;
+  user: any;
   dateChange: string;
 }
 export default function HistoryTemplates({
@@ -11,7 +11,7 @@ export default function HistoryTemplates({
   dateChange,
 }: HistoryProps) {
   return (
-    <div className="text-[24px] basis-[calc(33.33%-10px)]">
+    <div className="text-[24px] basis-[calc(33.33%-10px)] dark:text-white">
       <div className="basis-[calc(33.33%-10px)] rounded-t-[35px] p-[20px] border-main border-t-[1px] border-x-[1px] gap-[37px] flex justify-between">
         <h2>Название:</h2>
         <b>{title}</b>
