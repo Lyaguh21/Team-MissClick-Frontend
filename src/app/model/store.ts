@@ -12,6 +12,14 @@ interface IUser {
   roles: ("USER" | "ADMIN")[];
 }
 
+interface audit {
+  event: string;
+  id: string;
+  user: IUser;
+  article: string;
+  date: Date;
+}
+
 export interface IPost {
   id: string;
   title?: string;
@@ -39,6 +47,20 @@ interface IUsers {
   postUser: (user: IUser) => void;
   setCurrentUser: (user: { name: string; login: string } | null) => void;
 }
+
+interface IAuditSlice {
+  audit: audit[]
+  fetchAudit: () => void
+}
+
+export const auditSlice = create<IAuditSlice>((set) => ({
+  audit: [],
+  fetchAudit: async () => {
+    const res = await axios.get('http://localhost:3000/audit')
+    const data = await res.data
+    set({audit: data})
+  }
+}))
 
 export const usersSlice = create<IUsers>((set) => ({
   currentUser: null,
