@@ -7,6 +7,7 @@ import { useState } from "react";
 import ModalWindow from "../ui/global/ModalWindow";
 import CreateTask from "../ui/Tasks/CreateTask";
 import UpdateTask from "../ui/Tasks/UpdateTask";
+import { NavLink } from "react-router";
 
 export interface ITaskLess {
   title: string;
@@ -31,13 +32,15 @@ export default function Tasks() {
           <FaPlus />
           Создать задачу
         </Button>
-        <Button
-          appearance="grayButton"
-          className="flex gap-[14px] items-center"
-        >
-          <FaHistory />
-          История изменений
-        </Button>
+        <NavLink to={"/audit"}>
+          <Button
+            appearance="grayButton"
+            className="flex gap-[14px] items-center"
+          >
+            <FaHistory />
+            История изменений
+          </Button>
+        </NavLink>
       </div>
       <div className="flex justify-between">
         <TaskBlock nameCol="Отложенные задачи" count={4}>

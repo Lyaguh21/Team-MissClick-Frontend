@@ -10,6 +10,7 @@ import UpdateModal from "../ui/Info/UpdateModal";
 import classNames from "classnames";
 import { MdErrorOutline } from "react-icons/md";
 import ViewInfo from "../ui/Info/ViewInfo";
+import { NavLink } from "react-router";
 
 interface IPostLess {
   id: string;
@@ -44,13 +45,15 @@ export default function Info() {
             <FaPlus />
             Создать статью
           </Button>
-          <Button
-            appearance="grayButton"
-            className="flex gap-[14px] items-center"
-          >
-            <FaHistory />
-            История изменений
-          </Button>
+          <NavLink to={"/audit"}>
+            <Button
+              appearance="grayButton"
+              className="flex gap-[14px] items-center"
+            >
+              <FaHistory />
+              История изменений
+            </Button>
+          </NavLink>
         </div>
         <div
           className={classNames(

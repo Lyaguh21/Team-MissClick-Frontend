@@ -12,6 +12,7 @@ import Register from "./app/pages/Register.tsx";
 import Admin from "./app/pages/Admin.tsx";
 import Layout from "./widgets/layout/Layout.tsx";
 import LayoutRegister from "./widgets/layout/LayoutRegister.tsx";
+import JournalAudit from "./app/pages/JournalAudit.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin />,
+      },
+      {
+        path: "/audit",
+        element: <JournalAudit />,
       },
     ],
   },

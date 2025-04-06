@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TbDots } from "react-icons/tb";
 import ContextWindow from "../global/ContextWindow";
 import { IPost, postsSlice } from "../../model/store";
+import { IoMdPhotos } from "react-icons/io";
 
 interface PostTemplateProps {
   id: number;
@@ -117,6 +118,11 @@ export default function PostTemplate({
             src={image}
             className="switchTheme object-cover bg-child-post dark:bg-dk-bg aspect-square rounded-[10px] w-50 border-[1px] border-main"
           />
+        )}
+        {!imageVisible && (
+          <div className="switchTheme object-cover bg-child-post dark:bg-dk-bg aspect-square rounded-[10px] w-50 border-[1px] border-main flex justify-center items-center">
+            <IoMdPhotos className="size-10" />
+          </div>
         )}
       </div>
       <h2 className="switchTheme w-full mt-[10px] bg-child-post dark:bg-dk-bg p-[8px] rounded-tr-[10px]">
