@@ -24,6 +24,14 @@ export interface IPost {
 
 type status = "CURRENT" | "POSTPONED" | "COMPLETED";
 
+interface ITaskUpdate {
+  id: number;
+  title: string;
+  content:string;
+  image: string;
+  plannedDate: Date;
+}
+
 interface ITaskPost {
   status: status;
   title: string;
@@ -43,7 +51,7 @@ interface ITaskSlice {
   fetchTasks: () => void;
   postTask: (task: ITaskPost) => void;
   deleteTask: (id: number) => void;
-  updateTask: (task: ITask) => void;
+  updateTask: (task: ITaskUpdate) => void;
   updateStatus: (id: string, status: status) => void;
 }
 
