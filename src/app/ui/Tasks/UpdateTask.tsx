@@ -13,7 +13,7 @@ interface IForm {
   content: string;
   image: string | null;
   id: string;
-  plannedDate: string;
+  plannedDate: Date;
 }
 
 const UpdateTask: React.FC<IProps> = ({ setUpdateModal, form, taskid }) => {

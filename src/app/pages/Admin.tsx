@@ -9,9 +9,7 @@ export default function Info() {
   const userSlice = usersSlice();
 
   useEffect(() => {
-    setInterval(() => {
-      console.log(userSlice.users);
-    }, 1000);
+    userSlice.fetchUsers();
   }, []);
 
   const [isResetPasswordModalShow, setIsResetPasswordModalShow] =
@@ -23,7 +21,7 @@ export default function Info() {
     <div className="flex flex-col pl-10 pt-5 dark:text-white">
       <h1 className="text-4xl">Управление пользователями</h1>
 
-      <section className="w-200 flex flex-col items-cetner gap-3 mt-4 overflow-y-scroll h-180 pb-10">
+      <section className="w-200 flex flex-col items-center gap-3 mt-4 overflow-y-scroll h-180 pb-10">
         <SearchBar />
 
         {userSlice.users &&
