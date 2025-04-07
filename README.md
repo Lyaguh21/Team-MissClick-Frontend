@@ -1,54 +1,101 @@
-# React + TypeScript + Vite
+# 🚀 TTK Organizer - HackRnd Spring 2025
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Репозиторий команды **Miss Click** - организация задач и статей с современным интерфейсом.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Функционал
 
-## Expanding the ESLint configuration
+- 🔐 **Аутентификация**
+  - Регистрация и авторизация
+  - Шифрование паролей через JWT токен
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 📝 **Статьи**
+  - Создание с текстом и изображениями
+  - Просмотр, редактирование и удаление
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- ✅ **Управление задачами**
+  - Создание задач с текстом и приоритетом
+  - Перетаскивание между колонками:
+    - 🕒 Отложено
+    - ⏳ Выполняется
+    - ✅ Выполнено
+  - Редактирование задач
+
+- 👨‍💻 **Администрирование**
+  - Просмотр всех пользователей
+  - Управление пользователями
+
+- 🌙 **Темная тема** - для комфортной работы в любое время суток
+
+## 🛠 Cтек
+
+### Frontend
+- React + TypeScript
+- Zustand (управление состоянием)
+- Motion (анимации)
+- React Router
+- Другие  библиотеки
+
+### Backend
+- NestJS
+- PostgreSQL
+- Prisma ORM
+- Docker
+
+## 🚀 Установка и запуск
+
+### Frontend
+##### Устанавливаете [фронтенд репозиторий](https://github.com/Lyaguh21/Team-MissClick-Frontend) в любое удобное место
+#
+##### Загружаете зависимости
+#
+```bash
+npm i
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+##### Запускаете
+#
+```bash
+npm run dev
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Backend
+##### Устанавливаете [бекенд репозиторий](https://github.com/Lyaguh21/Team-MissClick-Backend) в любое удобное место
+#
+##### Загружаете зависимости
+#
+```bash
+npm i
+```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+##### Создаете файл .env в корневой папке c содержимым:
+#
+```
+DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
+JWT_SECRET=super-secret-key
+JWT_EXPIRES_IN=1d
+```
+
+##### Настраиваете prisma:
+#
+```bash
+npx prisma generate
+```
+
+##### Открываете репозиторий через докер
+#
+```bash
+docker compose up -d      
+````
+##### Запускаете backend репозиторий
+#
+```bash
+npm run start:dev
+```
+---
+
+##### Если хотите просмотреть бд 
+#
+```bash
+npx prisma studio
 ```
